@@ -1,0 +1,19 @@
+{
+  "name": "univexpress-3moc",
+  "version": "1.0.0",
+  "description": "Une api pour des impressario",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bingchillin/Univexpress-3MOC.git"
+  },
+  "author": "kenny su, ivo talvet, mohamed el fakharany",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bingchillin/Univexpress-3MOC/issues"
+  },
+  "homepage": "https://github.com/bingchillin/Univexpress-3MOC#readme"
+}
