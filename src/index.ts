@@ -1,9 +1,14 @@
 import express from 'express';
 
 
-const app = express();
+export const app = express();
 
 app.get('/', (req, res) => res.send("Hello world"));
 
+export function createServer(app: express.Express, port: number) {
+    return app.listen(port, () => console.log(
+        "Serveur en marche sur port " + port));
+}
 
-app.listen(3000, () => console.log("Serrveur en marche"));
+// setTimeout(() => createServer(app, 3000), 0);
+// setTimeout(() => createServer(app, 4000), 0);
