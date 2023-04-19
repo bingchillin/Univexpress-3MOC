@@ -159,3 +159,4 @@ dist
 
 /.idea
 /data
+/src/*.js
