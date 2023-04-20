@@ -3,16 +3,15 @@ import AdminJS from 'adminjs';
 import AdminJSExpress from '@adminjs/express';
 import AdminJSMongoose from '@adminjs/mongoose';
 AdminJS.registerAdapter(AdminJSMongoose);
-import mongoose, {mongoUrl} from "../services/mongoose";
+import mongoose, {mongoUrl} from "../../services/mongoose";
+import { Maquettes } from '../../dal/mongoose/maquette';
+import { maquettesRouter } from './maquettes.controller';
 
 
 const app = express();
 
 app.get('/', (req, res) => res.send("Hello world"));
 
-import {maquetteSchema} from "../Maquettes/maquette.entity";
-
-const Maquettes = mongoose.model('Maquettes', maquetteSchema);
 
 const adminJs = new AdminJS({
     databases: [], // We don’t have any resources connected yet.
@@ -25,8 +24,10 @@ const adminJs = new AdminJS({
 const router = AdminJSExpress.buildRouter(adminJs);
 app.use(adminJs.options.rootPath, router);
 
-function createServer(app: express.Express, port: number) {
-    async () => await mongoose.connect(mongoUrl);
+app.use('/maquettes', maquettesRouter);
+
+export function createServer(app: express.Express, port: number) {
+    (async () => await mongoose.connect(mongoUrl))();
 
     return app.listen(port, () => console.log(
         "Serveur en marche sur port " + port));

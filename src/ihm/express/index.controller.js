@@ -26,28 +26,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createServer = void 0;
 const express_1 = __importDefault(require("express"));
 const adminjs_1 = __importDefault(require("adminjs"));
 const express_2 = __importDefault(require("@adminjs/express"));
 const mongoose_1 = __importDefault(require("@adminjs/mongoose"));
 adminjs_1.default.registerAdapter(mongoose_1.default);
-const mongoose_2 = __importStar(require("../services/mongoose"));
+const mongoose_2 = __importStar(require("../../services/mongoose"));
+const maquette_1 = require("../../dal/mongoose/maquette");
+const maquettes_controller_1 = require("./maquettes.controller");
 const app = (0, express_1.default)();
 app.get('/', (req, res) => res.send("Hello world"));
-const maquette_entity_1 = require("../Maquettes/maquette.entity");
-const Maquettes = mongoose_2.default.model('Maquettes', maquette_entity_1.maquetteSchema);
 const adminJs = new adminjs_1.default({
     databases: [],
     resources: [
-        { resource: Maquettes }
+        { resource: maquette_1.Maquettes }
     ],
     rootPath: '/admin', // Path to the AdminJS dashboard.
 });
 // Build and use a router to handle AdminJS routes.
 const router = express_2.default.buildRouter(adminJs);
 app.use(adminJs.options.rootPath, router);
+app.use('/maquettes', maquettes_controller_1.maquettesRouter);
 function createServer(app, port) {
-    async () => await mongoose_2.default.connect(mongoose_2.mongoUrl);
+    (async () => await mongoose_2.default.connect(mongoose_2.mongoUrl))();
     return app.listen(port, () => console.log("Serveur en marche sur port " + port));
 }
+exports.createServer = createServer;
 exports.default = app;

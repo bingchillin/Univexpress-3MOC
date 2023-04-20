@@ -1,10 +1,8 @@
 import {describe, test, expect, beforeAll, afterAll} from "@jest/globals";
 import {Server} from "http";
-import express from 'express';
 
 let server: Server;
-import app from "./ihm/serveurExpress";
-
+import app from "./ihm/express/index.controller";
 
 beforeAll(async () => {
     setTimeout(() => server = app.listen(3000, ()=> console.log("Serveur de test en ecoute sur 3000")), 0);
