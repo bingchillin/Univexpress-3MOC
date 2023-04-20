@@ -26,18 +26,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
 const mongoose_1 = __importStar(require("../../services/mongoose"));
 const maquette_1 = require("./maquette");
+const child_process_1 = require("child_process");
 /**
  * https://zellwk.com/blog/jest-and-mongoose/
  */
-(0, globals_1.beforeAll)(async () => {
-    console.log(mongoose_1.mongoUrl);
-    await mongoose_1.default.connect(mongoose_1.mongoUrl);
-    await maquette_1.Maquettes.deleteMany();
-});
-(0, globals_1.afterAll)(async () => {
-    // await mongoose.connection.close();
-});
 (0, globals_1.describe)("dal mongoose maquette", () => {
+    (0, globals_1.beforeAll)(async () => {
+        console.log(mongoose_1.mongoUrl);
+        (0, child_process_1.exec)("docker compose up -d", (error, stdout, stderr) => {
+            console.log("toto");
+            if (error) {
+                console.error(error);
+            }
+            if (stderr) {
+                console.error(stderr);
+            }
+            console.log(stdout);
+        });
+        console.log("tata");
+        await mongoose_1.default.connect(mongoose_1.mongoUrl);
+        await maquette_1.Maquettes.deleteMany();
+    }, 40000);
+    (0, globals_1.afterAll)(async () => {
+        // await mongoose.connection.close();
+        (0, child_process_1.exec)("docker compose down");
+    });
     (0, globals_1.test)("mongoose est connecté", () => {
         (0, globals_1.expect)(mongoose_1.default.connection).toBeTruthy();
     });
