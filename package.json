@@ -4,7 +4,7 @@
   "description": "Une api pour des impressario",
   "type": "commonjs",
   "scripts": {
-    "test": "jest",
+    "test": "jest --setupFiles dotenv/config",
     "start": "nodemon --exec ts-node ./src/index.ts",
     "test:ci": "DOTENV_CONFIG_PATH=./.test.ci.env tsc && jest --setupFiles dotenv/config"
   },

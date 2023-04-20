@@ -5,7 +5,7 @@ let server: Server;
 import app from "./ihm/express/index.controller";
 
 beforeAll(async () => {
-    setTimeout(() => server = app.listen(3000, ()=> console.log("Serveur de test en ecoute sur 3000")), 0);
+    setTimeout(() => server = app.listen(3000), 0);
 });
 
 afterAll(async () => server.close(() => 0));
