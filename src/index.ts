@@ -1,4 +1,4 @@
-import app from "./ihm/serveurExpress";
+import app, { createServer } from "./ihm/express/index.controller";
 
 
-setTimeout((app) => app.listen(3000, () => console.log("Serveur en ecoute su rle port 3000")), 0);
+setTimeout(() => createServer(app, 3000), 0);

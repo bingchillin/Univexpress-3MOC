@@ -23,5 +23,27 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const index_controller_1 = __importStar(require("./ihm/express/index.controller"));
-setTimeout(() => (0, index_controller_1.createServer)(index_controller_1.default, 3000), 0);
+const globals_1 = require("@jest/globals");
+const mongoose_1 = __importStar(require("../../services/mongoose"));
+const maquette_1 = require("./maquette");
+/**
+ * https://zellwk.com/blog/jest-and-mongoose/
+ */
+(0, globals_1.beforeAll)(async () => {
+    console.log(mongoose_1.mongoUrl);
+    await mongoose_1.default.connect(mongoose_1.mongoUrl);
+    await maquette_1.Maquettes.deleteMany();
+});
+(0, globals_1.afterAll)(async () => {
+    // await mongoose.connection.close();
+});
+(0, globals_1.describe)("dal mongoose maquette", () => {
+    (0, globals_1.test)("mongoose est connecté", () => {
+        (0, globals_1.expect)(mongoose_1.default.connection).toBeTruthy();
+    });
+    (0, globals_1.test)("repo est vide", async () => {
+        const maquettes = await maquette_1.Maquettes.find();
+        console.log(maquettes);
+        (0, globals_1.expect)(maquettes).toHaveLength(0);
+    });
+});

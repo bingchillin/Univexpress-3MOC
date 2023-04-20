@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
 let server;
-const serveurExpress_1 = __importDefault(require("./ihm/serveurExpress"));
+const index_controller_1 = __importDefault(require("./ihm/express/index.controller"));
 (0, globals_1.beforeAll)(async () => {
-    setTimeout(() => server = serveurExpress_1.default.listen(3000, () => console.log("Serveur de test en ecoute sur 3000")), 0);
+    setTimeout(() => server = index_controller_1.default.listen(3000, () => console.log("Serveur de test en ecoute sur 3000")), 0);
 });
 (0, globals_1.afterAll)(async () => server.close(() => 0));
 (0, globals_1.describe)("index.ts hello", () => {

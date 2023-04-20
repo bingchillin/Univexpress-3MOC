@@ -1,6 +1,6 @@
 db.createUser({
     user: "admin",
-    pwd: "admin",
+    pwd: passwordPrompt(),
     roles: [
         {
             role: "readWrite",
