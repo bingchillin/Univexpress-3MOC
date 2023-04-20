@@ -25,7 +25,7 @@ jobs:
       - run: npm run build --if-present
       - run: docker compose -f "docker-compose-ci.yml" up -d --build
       - run: |
-        touch .env
-        echo MONGO_HOST = db >> .env
+          touch .env
+          echo MONGO_HOST=db >> .env
       - run: npm test
       - run: docker compose down
