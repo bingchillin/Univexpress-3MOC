@@ -11,7 +11,7 @@ import { Mongoose } from "mongoose";
 describe("dal mongoose maquette", ()=> {
 
     beforeAll(async () => {
-        console.log(mongoUrl);
+
         await mongoose.connect(mongoUrl);
         await Maquettes.deleteMany();
     }, 40000)
@@ -30,5 +30,37 @@ describe("dal mongoose maquette", ()=> {
         const maquettes = await Maquettes.find();
 
         expect(maquettes).toHaveLength(0);
-    })
+    });
+
+    test("ajouter quelque chose", async () => {
+
+        const maquette = new Maquettes({
+            name: "toto",
+            dateSubmit: Date.now(),
+            url: "toto"
+        });
+
+        const doc = await maquette.save();
+
+        expect(doc._id).toBeTruthy();
+    });
+
+    test("validation fonctionne", async () => {
+
+        const maquette = new Maquettes({
+            name: "toto",
+        });
+
+        let errors = maquette.validateSync();
+        
+        expect(errors).toBeTruthy();
+    });
+
+    test("Une maquette existe en base de données", async () => {
+        const maquettes = await Maquettes.find();
+
+        expect(maquettes).toHaveLength(1);
+        expect(maquettes[0].name).toBe("toto");
+        expect(maquettes[0].url).toBe("toto");
+    });
 });
