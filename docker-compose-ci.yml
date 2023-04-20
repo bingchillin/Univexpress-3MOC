@@ -1,9 +1,0 @@
-version: '3.7'
-
-services:
-  db:
-    extends:
-      file: docker-compose.yml
-      service: db
-    environment:
-      MONGO_HOST: db
