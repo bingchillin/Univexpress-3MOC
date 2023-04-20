@@ -1,17 +1,20 @@
 import {describe, test, expect, beforeAll, afterAll} from "@jest/globals";
 import {Server} from "http";
-
-let server: Server;
 import app from "./ihm/express/index.controller";
 
-beforeAll(async () => {
-    setTimeout(() => server = app.listen(3000), 0);
-});
-
-afterAll(async () => server.close(() => 0));
+let server: Server;
+let to: NodeJS.Timeout;
 
 describe("index.ts hello", () => {
-
+    beforeAll(async () => {
+        to = setTimeout(() => server = app.listen(3000), 0);
+    });
+    
+    afterAll((done) => {
+        to.unref();
+        server.close(done);
+    });
+    
     test("Main route to return hello", async () => {
         const f = await fetch('http://localhost:3000');
 
