@@ -19,4 +19,4 @@ class ConfigService {
     }
 }
 
-export default new ConfigService()
+export default new ConfigService(); 

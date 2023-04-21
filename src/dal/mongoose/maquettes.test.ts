@@ -14,13 +14,13 @@ describe("dal mongoose maquette", ()=> {
 
         await mongoose.connect(mongoUrl);
         await Maquettes.deleteMany();
-    }, 40000)
+    }, 40000);
     
     afterAll((done) => {
 
         mongoose.connection.close();  
         done();
-    })    
+    });    
 
     test("mongoose est connecté", () => {
         expect(mongoose.connection).toBeTruthy();
@@ -51,7 +51,7 @@ describe("dal mongoose maquette", ()=> {
             name: "toto",
         });
 
-        let errors = maquette.validateSync();
+        const errors = maquette.validateSync();
         
         expect(errors).toBeTruthy();
     });

@@ -1,7 +1,8 @@
+import { IUser } from "../Users/user.entity";
 import Crud from "../dal/_interface";
 import {Users, UsersRepository } from "../dal/mongoose/users";
 
-type User = typeof Users; 
+type User = IUser; 
 
 class UsersCrud implements Crud<User> {
     constructor(private repo: UsersRepository) {}
@@ -22,3 +23,5 @@ class UsersCrud implements Crud<User> {
         return await this.repo.delete([{criteres}]);
     }
 }
+
+export default new UsersCrud(new UsersRepository());
