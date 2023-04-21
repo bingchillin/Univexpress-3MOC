@@ -8,4 +8,4 @@ export const mongoUrl = `mongodb://${configService.MONGO_USER
 }/${configService.MONGO_DB
 }`;
 
-export default mongoose
+export default mongoose;

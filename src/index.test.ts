@@ -16,15 +16,15 @@ describe("index.ts hello", () => {
     });
     
     test("Main route to return hello", async () => {
-        const f = await fetch('http://localhost:3000');
+        const f = await fetch("http://localhost:3000");
 
         expect(f.ok).toBeTruthy();
     });
 
     test("Main route to return \"Hello world\"", async () => {
-        const f = await fetch('http://localhost:3000');
+        const f = await fetch("http://localhost:3000");
         const res = await f.text();
 
-        expect(res).toBe('Hello world');
-    })
+        expect(res).toBe("Hello world");
+    });
 });

@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
-import { IMaquette } from '../../Maquettes/maquette.entity';
-import Crud from '../_interface';
+import mongoose, { Schema } from "mongoose";
+import { IMaquette } from "../../Maquettes/maquette.entity";
+import Crud from "../_interface";
 
 
 export const maquetteSchema = new Schema({
@@ -18,7 +18,7 @@ export const maquetteSchema = new Schema({
     },
 });
 
-export const Maquettes = mongoose.model<IMaquette>('Maquettes', maquetteSchema);
+export const Maquettes = mongoose.model<IMaquette>("Maquettes", maquetteSchema);
 
 export class MaquettesRepository implements Crud<typeof Maquettes>{
     async getAll(): Promise<typeof Maquettes[]> {
@@ -28,7 +28,7 @@ export class MaquettesRepository implements Crud<typeof Maquettes>{
         return await Maquettes.findOne({criteres});
     }
     async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
-        throw new Error('Method not implemented.');
+        throw new Error("Method not implemented.");
     }
     async create(objets: typeof Maquettes[]): Promise<number> {
         let inserts = 0;
@@ -36,17 +36,17 @@ export class MaquettesRepository implements Crud<typeof Maquettes>{
         for(const ob of objets) {
             try {
                 const maquette = new Maquettes(ob);
-                maquette.save();
+                await maquette.save();
                 inserts++;
             } catch(err) {
                 console.error(err);
-                continue;
+                throw err;
             }
         }
         return inserts;
     }
     async delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
-        throw new Error('Method not implemented.');
+        throw new Error("Method not implemented.");
     }
 
 }

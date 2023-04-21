@@ -1,0 +1,27 @@
+{
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "root": true,
+      "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "overrides": [
+        {
+            "files": ["src/**/*.ts" ],
+            "rules": {
+                "@typescript-eslint/semi": [2, "always"],
+                "@typescript-eslint/quotes": [2, "double"]
+            }
+        }
+    ],
+    "ignorePatterns": [ "src/**/*.js" ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": ["./tsconfig.json"]
+    },
+    "rules": {
+    }
+}
