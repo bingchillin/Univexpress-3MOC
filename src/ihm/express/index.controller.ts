@@ -4,7 +4,7 @@ import AdminJSExpress from '@adminjs/express';
 import AdminJSMongoose from '@adminjs/mongoose';
 AdminJS.registerAdapter(AdminJSMongoose);
 import mongoose, {mongoUrl} from "../../services/mongoose";
-import { Maquettes } from '../../dal/mongoose/maquette';
+import { Maquettes } from '../../dal/mongoose/maquettes';
 import { maquettesRouter } from './maquettes.controller';
 
 
