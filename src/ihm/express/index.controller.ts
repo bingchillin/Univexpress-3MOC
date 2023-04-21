@@ -16,6 +16,17 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.use(
+  jwt({
+    secret: config.JWT_SECRET,
+    algorithms: ["HS256"],
+  }).unless({ path: [
+    "/auth/login",
+    "/auth/register",
+    "/"
+  ] })
+);
+
 app.get("/", (req, res) => res.send("Hello world"));
 
 
