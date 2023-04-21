@@ -1,6 +1,6 @@
 import {describe, test, expect, beforeAll, afterAll} from "@jest/globals";
 import mongoose, { mongoUrl } from "../../services/mongoose";
-import { Maquettes } from "./maquette";
+import { Maquettes } from "./maquettes";
 import { exec } from "child_process";
 import { Mongoose } from "mongoose";
 
