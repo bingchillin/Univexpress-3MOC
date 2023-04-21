@@ -1,7 +1,5 @@
 import Crud from "../dal/_interface";
-import mongoose from "../services/mongoose";
 import {Maquettes, MaquettesRepository } from "../dal/mongoose/maquette";
-import { IMaquette } from "./maquette.entity";
 
 type Maquette = typeof Maquettes; 
 
@@ -23,5 +21,4 @@ class MaquetteMongoose implements Crud<Maquette> {
     async delete([{criteres }]: [{ [key: string]: string; }]): Promise<number> {
         return await this.repo.delete([{criteres}]);
     }
-
 }
