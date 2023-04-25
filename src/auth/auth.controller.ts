@@ -1,11 +1,11 @@
 import {Router} from "express";
-import { UserLoginDto } from "../../dto/UserLogin";
-import usersCrud from "../../bll/Users";
+import { UserLoginDto } from "./dto/UserLogin";
+import usersCrud from "../Users/Users.Repo";
 import { StatusCodes } from "http-status-codes";
 
 import jwt from "jsonwebtoken";
-import config from "../../services/config";
-import Users from "../../bll/Users";
+import config from "../services/config";
+import Users from "../Users/Users.Repo";
 
 const authController = Router();
 

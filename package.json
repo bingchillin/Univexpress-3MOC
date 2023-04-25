@@ -4,9 +4,10 @@
   "description": "Une api pour des impressario",
   "type": "commonjs",
   "scripts": {
-    "test": "jest --setupFiles dotenv/config",
+    "test": "jest --setupFiles dotenv/config --coverage",
     "start": "nodemon --exec ts-node ./src/index.js",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "mongo-gui": "mongo-gui -u mongodb://admin:admin@localhost/maquettes"
   },
   "repository": {
     "type": "git",

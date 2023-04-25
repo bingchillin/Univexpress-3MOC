@@ -1,1 +1,0 @@
-Ici controlleurs et vues.

@@ -1,4 +1,4 @@
-import app, { createServer } from "./ihm/express/index.controller";
+import app, { createServer } from "./index.controller";
 
 
 setTimeout(() => createServer(app, 3000), 0);

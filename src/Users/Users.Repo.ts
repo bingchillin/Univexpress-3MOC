@@ -1,4 +1,4 @@
-import { IUser } from "../Users/user.entity";
+import { IUser } from "./user.entity";
 import Crud from "../dal/_interface";
 import {Users, UsersRepository } from "../dal/mongoose/users";
 

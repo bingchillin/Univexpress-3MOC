@@ -3,13 +3,12 @@ import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
 import AdminJSMongoose from "@adminjs/mongoose";
 AdminJS.registerAdapter(AdminJSMongoose);
-import mongoose, {mongoUrl} from "../../services/mongoose";
-import { Maquettes } from "../../dal/mongoose/maquettes";
-import { maquettesRouter } from "./maquettes.controller";
+import mongoose, {mongoUrl} from "./services/mongoose";
+import { Maquettes } from "./dal/mongoose/maquettes";
+import { maquettesRouter } from "./Maquettes/maquettes.controller";
 import {expressjwt as jwt, Request as JWTRequest} from "express-jwt";
-import config from "../../services/config";
-import AuthControler from "./auth.controller";
-import authController from "./auth.controller";
+import config from "./services/config";
+import authController from "./auth/auth.controller";
 import bodyParser from "body-parser";
 
 const app = express();

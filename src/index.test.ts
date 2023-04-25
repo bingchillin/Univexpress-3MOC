@@ -1,6 +1,6 @@
 import {describe, test, expect, beforeAll, afterAll} from "@jest/globals";
 import {Server} from "http";
-import app from "./ihm/express/index.controller";
+import app from "./index.controller";
 
 let server: Server;
 let to: NodeJS.Timeout;
