@@ -5,7 +5,7 @@ import AdminJSMongoose from "@adminjs/mongoose";
 AdminJS.registerAdapter(AdminJSMongoose);
 import mongoose, {mongoUrl} from "./services/mongoose";
 import { Maquettes } from "./dal/mongoose/maquettes";
-import { maquettesRouter } from "./Maquettes/maquettes.controller";
+import { maquettesRouter } from "./Maquettes/Maquettes.Controller";
 import {expressjwt as jwt, Request as JWTRequest} from "express-jwt";
 import config from "./services/config";
 import authController from "./auth/auth.controller";
