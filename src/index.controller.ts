@@ -28,7 +28,6 @@ app.use(
 
 app.get("/", (req, res) => res.send("Hello world"));
 
-
 const adminJs = new AdminJS({
     databases: [], // We don’t have any resources connected yet.
     resources: [

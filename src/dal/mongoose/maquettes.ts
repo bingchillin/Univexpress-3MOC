@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IMaquette } from "../../Maquettes/maquette.entity";
+import { IMaquette } from "../../Maquettes/Maquettes.Entity";
 import Crud from "../_interface";
 
 

@@ -8,15 +8,16 @@
 		{
 			"name": "get root",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/",
-					"protocol": "http",
+					"raw": "{{adresse serveur}}/",
 					"host": [
-						"localhost"
+						"{{adresse serveur}}"
 					],
-					"port": "3000",
 					"path": [
 						""
 					]
@@ -30,12 +31,10 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/auth/register",
-					"protocol": "http",
+					"raw": "{{adresse serveur}}/auth/register",
 					"host": [
-						"localhost"
+						"{{adresse serveur}}"
 					],
-					"port": "3000",
 					"path": [
 						"auth",
 						"register"
@@ -59,12 +58,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/auth/register",
-					"protocol": "http",
+					"raw": "{{adresse serveur}}/auth/register",
 					"host": [
-						"localhost"
+						"{{adresse serveur}}"
 					],
-					"port": "3000",
 					"path": [
 						"auth",
 						"register"
@@ -99,12 +96,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/auth/login",
-					"protocol": "http",
+					"raw": "{{adresse serveur}}/auth/login",
 					"host": [
-						"localhost"
+						"{{adresse serveur}}"
 					],
-					"port": "3000",
 					"path": [
 						"auth",
 						"login"
@@ -129,14 +124,26 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/",
-					"protocol": "http",
+					"raw": "{{adresse serveur}}",
 					"host": [
-						"localhost"
+						"{{adresse serveur}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creer compte admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{adresse serveur}}/add_admin",
+					"host": [
+						"{{adresse serveur}}"
 					],
-					"port": "3000",
 					"path": [
-						""
+						"add_admin"
 					]
 				}
 			},
@@ -206,6 +213,12 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "adresse serveur",
+			"value": "http://localhost:3000"
 		}
 	]
 }
