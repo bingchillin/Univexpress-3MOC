@@ -4,3 +4,5 @@ export interface IUser {
     registrationDate: Date;
     nickname?: string;
 }
+
+export type UserByNicknameDTO = Pick<IUser, 'nickname'>;
