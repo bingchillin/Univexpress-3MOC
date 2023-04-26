@@ -28,10 +28,11 @@ export class UsersRepository implements Crud<IUser>{
     async getAll(): Promise<IUser[]> {
         return await Users.find();
     }
-    async getOne({ criteres }: { [key: string]: string; }): Promise<IUser | null> {
-        return await Users.findOne({criteres});
+    async getOne({ ...criteres }: { [key: string]: string; }): Promise<IUser | null> {
+        console.log(criteres);
+        return await Users.findOne({...criteres});
     }
-    async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
+    async update([{ ...criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
     async create(objets: IUser[]): Promise<number> {
