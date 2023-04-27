@@ -3,6 +3,7 @@ dotenv.config();
 
 import UsersRepo from "./Users/Users.Repo";
 import app, { createServer } from "./index.express";
+import { User } from './Users/user.entity';
 
 
 
@@ -12,12 +13,11 @@ async function checkAdminExists () {
     console.log(user);
 
     if (user === null) {
-        UsersRepo.create([{
-            nickname: process.env.API_USERNAME, 
-            email: process.env.API_EMAIL ?? "admin@admin.org", 
-            password: process.env.API_PASSWORD ?? "toto",
-            registrationDate: Date.now(),
-        }])
+        UsersRepo.create([new User(
+            process.env.API_EMAIL ?? "admin@admin.org", 
+            process.env.API_PASSWORD ?? "admin",
+            process.env.API_USERNAME ?? "admin", 
+        )])
     }
     return user; 
 };
