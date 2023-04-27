@@ -29,7 +29,7 @@ export class UsersRepository implements Crud<IUser>{
         return await Users.find();
     }
     async getOne({ ...criteres }: { [key: string]: string; }): Promise<IUser | null> {
-        console.log(criteres);
+
         return await Users.findOne({...criteres});
     }
     async update([{ ...criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
