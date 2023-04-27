@@ -12,7 +12,7 @@ class UsersCrud implements Crud<User> {
     }
 
     async getOne({ ...criteres }: { [key : string]: any; }): Promise<User | null> {
-        console.log(criteres);
+
         return await this.repo.getOne({...criteres});
     }
 
@@ -32,7 +32,7 @@ class UsersCrud implements Crud<User> {
     }
 
     async getOneByNickname({nickname}: UserByNicknameDTO) {
-        console.log(nickname);
+
         return await this.getOne({nickname}); 
     }
 }

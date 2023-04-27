@@ -58,9 +58,7 @@ authController.post("/login",async (req, res) => {
 authController.post("/register", async (req, res) => {
     try {
         debugger;
-        console.log(req.body);
         const num = await Users.create([req.body]);
-        console.log(num);
     } catch(err) {
         res.status(StatusCodes.BAD_REQUEST).send(err);
         return;

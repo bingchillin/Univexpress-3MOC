@@ -10,13 +10,13 @@ import { User } from './Users/user.entity';
 // create root user if none exists
 async function checkAdminExists () {
     const user = await UsersRepo.getOneByNickname({nickname: 'admin'}); 
-    console.log(user);
 
     if (user === null) {
         UsersRepo.create([new User(
             process.env.API_EMAIL ?? "admin@admin.org", 
             process.env.API_PASSWORD ?? "admin",
             process.env.API_USERNAME ?? "admin", 
+            'admin'
         )])
     }
     return user; 
