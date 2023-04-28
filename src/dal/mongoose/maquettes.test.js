@@ -25,25 +25,46 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
 const mongoose_1 = __importStar(require("../../services/mongoose"));
-const maquette_1 = require("./maquette");
+const maquettes_1 = require("./maquettes");
 /**
  * https://zellwk.com/blog/jest-and-mongoose/
  */
 (0, globals_1.describe)("dal mongoose maquette", () => {
     (0, globals_1.beforeAll)(async () => {
-        console.log(mongoose_1.mongoUrl);
         await mongoose_1.default.connect(mongoose_1.mongoUrl);
-        await maquette_1.Maquettes.deleteMany();
+        await maquettes_1.Maquettes.deleteMany();
     }, 40000);
-    (0, globals_1.afterAll)(async () => {
-        // await mongoose.connection.close();  
+    (0, globals_1.afterAll)((done) => {
+        mongoose_1.default.connection.close();
+        done();
     });
     (0, globals_1.test)("mongoose est connecté", () => {
         (0, globals_1.expect)(mongoose_1.default.connection).toBeTruthy();
     });
     (0, globals_1.test)("repo est vide", async () => {
-        const maquettes = await maquette_1.Maquettes.find();
-        console.log(maquettes);
+        const maquettes = await maquettes_1.Maquettes.find();
         (0, globals_1.expect)(maquettes).toHaveLength(0);
+    });
+    (0, globals_1.test)("ajouter quelque chose", async () => {
+        const maquette = new maquettes_1.Maquettes({
+            name: "toto",
+            dateSubmit: Date.now(),
+            url: "toto"
+        });
+        const doc = await maquette.save();
+        (0, globals_1.expect)(doc._id).toBeTruthy();
+    });
+    (0, globals_1.test)("validation fonctionne", async () => {
+        const maquette = new maquettes_1.Maquettes({
+            name: "toto",
+        });
+        let errors = maquette.validateSync();
+        (0, globals_1.expect)(errors).toBeTruthy();
+    });
+    (0, globals_1.test)("Une maquette existe en base de données", async () => {
+        const maquettes = await maquettes_1.Maquettes.find();
+        (0, globals_1.expect)(maquettes).toHaveLength(1);
+        (0, globals_1.expect)(maquettes[0].name).toBe("toto");
+        (0, globals_1.expect)(maquettes[0].url).toBe("toto");
     });
 });
