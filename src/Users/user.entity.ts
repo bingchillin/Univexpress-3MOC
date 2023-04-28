@@ -29,12 +29,11 @@ export class User implements IUser {
 
 export const UserValidationSchema = Joi.object({
     email: Joi.string().email().required(),
-    username: Joi.string().alphanum().required(),
+    nickname: Joi.string().alphanum(),
     password: Joi.string().required().min(8),
     registrationDate: Joi.number(),
     role: Joi.string().valid(...ROLES).required(),
-});
-
+}).options({allowUnknown: false});
 
 export type UserByNicknameDTO = Pick<IUser, 'nickname'>;
 

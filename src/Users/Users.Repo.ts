@@ -1,4 +1,4 @@
-import { IUser, UserByNicknameDTO } from "./User.Entity";
+import { IUser, UserByNicknameDTO, UserValidationSchema } from "./User.Entity";
 import Crud from "../dal/_interface";
 import {Users, UsersRepository } from "../dal/mongoose/Users.Schema";
 
@@ -24,6 +24,14 @@ class UsersCrud implements Crud<User> {
     }
 
     async create(objets: [User]): Promise<number> {
+        for (const user of objets) {
+            const {error, value} = UserValidationSchema.validate(user);
+            if (error) {
+                console.log(JSON.stringify(error.details));
+                throw JSON.stringify(error.details);
+            }
+        }
+        console.log("here");
         return await this.repo.create(objets);
     }
 

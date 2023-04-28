@@ -59,10 +59,12 @@ authController.post("/login",async (req, res) => {
 authController.post("/register", async (req, res) => {
     try {
         const payload = req.body as IUserRegistrationDTO;
+        console.log(payload);
         const num = await Users.create([
             User.fromUserLoginDto(payload)
         ]);
     } catch(err) {
+        console.log(JSON.stringify(err));
         res.status(StatusCodes.BAD_REQUEST).send(err);
         return;
     }
