@@ -3,7 +3,7 @@ dotenv.config();
 
 import UsersRepo from "./Users/Users.Repo";
 import app, { createServer } from "./index.express";
-import { User } from './Users/User.Entity';
+import { User } from './Users/user.entity';
 
 
 
