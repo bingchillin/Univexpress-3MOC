@@ -4,11 +4,11 @@ import AdminJSExpress from "@adminjs/express";
 import AdminJSMongoose from "@adminjs/mongoose";
 AdminJS.registerAdapter(AdminJSMongoose);
 import mongoose, {mongoUrl} from "./services/mongoose";
-import { Maquettes } from "./dal/mongoose/maquettes";
+import { Maquettes } from "./dal/mongoose/Maquettes.Schema";
 import { maquettesRouter } from "./Maquettes/Maquettes.Controller";
 import {expressjwt as jwt, Request as JWTRequest} from "express-jwt";
 import config from "./services/config";
-import authController from "./auth/auth.controller";
+import authController from "./auth/Auth.Controller";
 import bodyParser from "body-parser";
 
 const app = express();

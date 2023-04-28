@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import { Role } from "../Users/user.entity";
+import { Role } from "../Users/User.Entity";
 import {Request} from 'express-jwt'
 
 

@@ -1,6 +1,6 @@
-import { IUser, UserByNicknameDTO } from "./user.entity";
+import { IUser, UserByNicknameDTO } from "./User.Entity";
 import Crud from "../dal/_interface";
-import {Users, UsersRepository } from "../dal/mongoose/users";
+import {Users, UsersRepository } from "../dal/mongoose/Users.Schema";
 
 type User = IUser; 
 

@@ -6,6 +6,7 @@ import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
 import config from "../services/config";
 import Users from "../Users/Users.Repo";
+import { IUserRegistrationDTO, User, IUser } from "../Users/User.Entity";
 
 const authController = Router();
 
@@ -57,8 +58,10 @@ authController.post("/login",async (req, res) => {
 
 authController.post("/register", async (req, res) => {
     try {
-        debugger;
-        const num = await Users.create([req.body]);
+        const payload = req.body as IUserRegistrationDTO;
+        const num = await Users.create([
+            User.fromUserLoginDto(payload)
+        ]);
     } catch(err) {
         res.status(StatusCodes.BAD_REQUEST).send(err);
         return;

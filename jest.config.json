@@ -1,7 +1,7 @@
 {
   "roots": ["src"],
   "testRegex": [
-    ".*\\.test\\.ts"
+    ".*\\.[tT]ests?\\.ts"
   ],
   "coverageDirectory": "./coverage"
 }

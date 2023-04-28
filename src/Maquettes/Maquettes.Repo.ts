@@ -1,5 +1,5 @@
 import Crud from "../dal/_interface";
-import {Maquettes, MaquettesRepository } from "../dal/mongoose/maquettes";
+import {Maquettes, MaquettesRepository } from "../dal/mongoose/Maquettes.Schema";
 
 type Maquette = typeof Maquettes; 
 

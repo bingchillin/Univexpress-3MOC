@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IUser } from "../../Users/user.entity";
+import { IUser } from "../../Users/User.Entity";
 import Crud from "../_interface";
 
 
@@ -20,6 +20,10 @@ export const userSchema = new Schema({
         type: String,
         required: false,
     },
+    role: {
+        type: String,
+        required: true
+    }
 });
 
 export const Users = mongoose.model<IUser>("Users", userSchema);
