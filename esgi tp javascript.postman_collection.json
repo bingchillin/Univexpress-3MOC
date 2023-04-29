@@ -28,6 +28,9 @@
 		{
 			"name": "auth register malformes",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"url": {
@@ -44,8 +47,11 @@
 			"response": []
 		},
 		{
-			"name": "auth register",
+			"name": "auth register trop court",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -71,7 +77,37 @@
 			"response": []
 		},
 		{
-			"name": "auth login",
+			"name": "auth register ok",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"registrationDate\": 123,\r\n    \"email\": \"toto@toto.com\",\r\n    \"password\": \"totototo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adresse serveur}}/auth/register",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth login toto",
 			"event": [
 				{
 					"listen": "test",
@@ -84,6 +120,9 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -135,8 +174,15 @@
 		{
 			"name": "Creer compte admin",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{adresse serveur}}/add_admin",
 					"host": [
@@ -144,6 +190,74 @@
 					],
 					"path": [
 						"add_admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth login admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"jwt-token\", pm.response.json());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adresse serveur}}/auth/login",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin post maquette forbid",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"registrationDate\": 123,\r\n    \"email\": \"toto@toto.com\",\r\n    \"password\": \"toto\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adresse serveur}}/auth/register",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"auth",
+						"register"
 					]
 				}
 			},
