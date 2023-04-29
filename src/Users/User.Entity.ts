@@ -12,7 +12,7 @@ export interface IUser {
     role: Role;
 }
 
-export type IUserRegistrationDTO = Required<Pick<IUser, 'email' | 'password'>>
+export type IUserRegistrationDTO = Required<Pick<IUser, 'email' | 'password'>>;
 
 export class User implements IUser {
     public registrationDate: number;
@@ -23,6 +23,10 @@ export class User implements IUser {
 
     static fromUserLoginDto(payload: IUserRegistrationDTO) {
         return new this(payload.email, payload.password);
+    }
+
+    static createAsManager(payload: IUserRegistrationDTO) {
+        return new this(payload.email, payload.password, undefined, "manager");
     }
 }
 
