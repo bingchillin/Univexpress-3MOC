@@ -1,5 +1,4 @@
 import Joi from "joi";
-import { UserLoginDto } from "../auth/dto/UserLogin";
 
 // https://stackoverflow.com/questions/44480644/string-union-to-string-array
 const ROLES = ['admin', 'manager', 'artist', 'user'] as const;
@@ -13,7 +12,7 @@ export interface IUser {
     role: Role;
 }
 
-export type IUserRegistrationDTO = Pick<IUser, 'email' | 'password'>
+export type IUserRegistrationDTO = Required<Pick<IUser, 'email' | 'password'>>
 
 export class User implements IUser {
     public registrationDate: number;
@@ -22,7 +21,7 @@ export class User implements IUser {
         this.registrationDate = Date.now();
     }
 
-    static fromUserLoginDto(payload: UserLoginDto) {
+    static fromUserLoginDto(payload: IUserRegistrationDTO) {
         return new this(payload.email, payload.password);
     }
 }
@@ -33,7 +32,7 @@ export const UserValidationSchema = Joi.object({
     password: Joi.string().required().min(8),
     registrationDate: Joi.number(),
     role: Joi.string().valid(...ROLES).required(),
-}).options({allowUnknown: false});
+});
 
 export type UserByNicknameDTO = Pick<IUser, 'nickname'>;
 

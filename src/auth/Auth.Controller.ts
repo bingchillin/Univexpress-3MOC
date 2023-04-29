@@ -1,5 +1,4 @@
 import {Router} from "express";
-import { UserLoginDto } from "./dto/UserLogin";
 import usersCrud from "../Users/Users.Repo";
 import { StatusCodes } from "http-status-codes";
 
@@ -15,7 +14,7 @@ authController.get("/login", (req, res) => {
 });
 
 authController.post("/login",async (req, res) => {
-    const pl = req.body as UserLoginDto;
+    const pl = req.body as IUserRegistrationDTO;
     const user = await usersCrud.getOne({email: pl.email});
 
     if(!user) {
@@ -27,6 +26,8 @@ authController.post("/login",async (req, res) => {
         res.status(StatusCodes.FORBIDDEN).send("Forbidden");
         return;
     }
+
+    delete user.password;  // evite que le mdp soit dans le jwt
 
     const token = jwt.sign(user, config.JWT_SECRET, { expiresIn: "1800s" });
 
