@@ -19,13 +19,7 @@ app.use(bodyParser.json());
 //   jwt({
 //     secret: config.JWT_SECRET,
 //     algorithms: ["HS256"],
-//   }).unless({ path: [
-//     "/auth/login",
-//     "/auth/register",
-//     "/",
-//     "/admin",
-//     "/admin/**"
-//   ] })
+//   })
 // );
 
 app.get("/", (req, res) => res.send("Hello world"));

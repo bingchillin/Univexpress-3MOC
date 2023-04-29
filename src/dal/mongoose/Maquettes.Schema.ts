@@ -2,7 +2,6 @@ import mongoose, { Schema } from "mongoose";
 import { IMaquette } from "../../Maquettes/Maquettes.Entity";
 import Crud from "../_interface";
 
-
 export const maquetteSchema = new Schema({
     name: {
         type: String,

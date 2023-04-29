@@ -28,28 +28,7 @@ authController.post("/login",async (req, res) => {
         return;
     }
 
-    const token = jwt.sign(pl, config.JWT_SECRET, { expiresIn: "1800s" });
-
-    res.json(token);
-
-    return;
-});
-
-authController.post("/login",async (req, res) => {
-    const pl = req.body as UserLoginDto;
-    const user = await usersCrud.getOne({email: pl.email});
-
-    if(!user) {
-        res.status(404).send("User not found");
-        return;
-    }
-
-    if(pl.password != user.password) {
-        res.status(StatusCodes.FORBIDDEN).send("Forbidden");
-        return;
-    }
-
-    const token = jwt.sign(pl, config.JWT_SECRET, { expiresIn: "1800s" });
+    const token = jwt.sign(user, config.JWT_SECRET, { expiresIn: "1800s" });
 
     res.json(token);
 

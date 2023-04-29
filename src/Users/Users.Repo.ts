@@ -1,6 +1,6 @@
 import { IUser, UserByNicknameDTO, UserValidationSchema } from "./User.Entity";
 import Crud from "../dal/_interface";
-import {Users, UsersRepository } from "../dal/mongoose/Users.Schema";
+import {UsersRepository } from "../dal/mongoose/Users.Schema";
 
 type User = IUser; 
 

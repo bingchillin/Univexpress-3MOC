@@ -26,15 +26,16 @@ export const userSchema = new Schema({
     }
 });
 
-export const Users = mongoose.model<IUser>("Users", userSchema);
-
 export class UsersRepository implements Crud<IUser>{
+    private Users = mongoose.model<IUser>("Users", userSchema);
+
     async getAll(): Promise<IUser[]> {
-        return await Users.find();
+        return await this.Users.find();
     }
     async getOne({ ...criteres }: { [key: string]: string; }): Promise<IUser | null> {
 
-        return await Users.findOne({...criteres});
+        const user = await this.Users.findOne({...criteres}).exec();
+        return user?.toObject() ?? null;
     }
     async update([{ ...criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
@@ -44,7 +45,7 @@ export class UsersRepository implements Crud<IUser>{
 
         for(const ob of objets) {
             try {
-                const maquette = new Users(ob);
+                const maquette = new this.Users(ob);
                 await maquette.save();
                 inserts++;
             } catch(err) {
