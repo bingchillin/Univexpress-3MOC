@@ -9,6 +9,13 @@ export const allowAuthMiddleware = (allowedRoles: Role[]) => {
         console.log(req.auth);
         const currentRole: Role = req.auth?.role
 
+        if(currentRole == "admin") {
+            // an admin can do everything by default
+            // to block an admin use forbidAuthMiddleWare
+            next();
+            return;
+        }
+
         if (!allowedRoles.includes(currentRole)) {
             res.status(401).send({
                 status: 401,
@@ -22,9 +29,6 @@ export const allowAuthMiddleware = (allowedRoles: Role[]) => {
 
 export const forbidAuthMiddleware = (forbidRoles: Role[]) => {
     return (req: JWTRequest, res: Response, next: NextFunction) => {
-        // console.log(req);
-        console.log(req.auth);
-        console.log(req.auth?.role);
 
         const currentRole: Role = req.auth?.role;
         

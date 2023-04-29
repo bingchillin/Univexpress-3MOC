@@ -34,7 +34,7 @@ export class MaquettesRepository implements Crud<typeof Maquettes>{
     async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
-    async create(objets: typeof Maquettes[]): Promise<typeof Maquettes[]> {
+    async create(objets: IMaquette[]): Promise<IMaquette[]> {
         let maquettes = [];
 
         for(const ob of objets) {

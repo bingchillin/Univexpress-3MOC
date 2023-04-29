@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { authMiddleware, forbidAuthMiddleware } from "../middlewares/authMiddleware";
+import maquettesRepo from "./Maquettes.Repo";
 
 export const maquettesRouter = Router();
 
@@ -12,5 +13,7 @@ maquettesRouter.post(
     authMiddleware(),
     forbidAuthMiddleware(["admin", "manager"]), 
     (req: Request, res: Response) => {
-    return res.json("OK");
+    
+    
+    await maquettesRepo.create()
 });
