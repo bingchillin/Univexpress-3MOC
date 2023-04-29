@@ -10,6 +10,7 @@ import {expressjwt as jwt, Request as JWTRequest} from "express-jwt";
 import config from "./services/config";
 import authController from "./auth/Auth.Controller";
 import bodyParser from "body-parser";
+import { usersController } from "./Users/Users.Controller";
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use(adminJs.options.rootPath, router);
 
 app.use("/maquettes", maquettesRouter);
 app.use("/auth", authController);
+app.use("/users", usersController);
 
 app.get(
     "/protected",

@@ -31,7 +31,7 @@ class UsersCrud implements Crud<User> {
                 throw JSON.stringify(error.details);
             }
         }
-        console.log("here");
+
         return await this.repo.create(objets);
     }
 
