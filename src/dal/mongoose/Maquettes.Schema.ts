@@ -15,6 +15,11 @@ export const maquetteSchema = new Schema({
         type: Date,
         required: true,
     },
+    owner: {
+        required: true,
+        type: Schema.Types.ObjectId,
+        ref: 'Users'
+    }
 });
 
 export const Maquettes = mongoose.model<IMaquette>("Maquettes", maquetteSchema);
@@ -29,23 +34,22 @@ export class MaquettesRepository implements Crud<typeof Maquettes>{
     async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
-    async create(objets: typeof Maquettes[]): Promise<number> {
-        let inserts = 0;
+    async create(objets: typeof Maquettes[]): Promise<typeof Maquettes[]> {
+        let maquettes = [];
 
         for(const ob of objets) {
             try {
                 const maquette = new Maquettes(ob);
                 await maquette.save();
-                inserts++;
+                maquettes.push(maquette.toObject());
             } catch(err) {
                 console.error(err);
                 throw err;
             }
         }
-        return inserts;
+        return maquettes;
     }
     async delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
-
 }

@@ -23,7 +23,7 @@ class UsersCrud implements Crud<User> {
         return await this.repo.update([{...criteres}, {changements}]);
     }
 
-    async create(objets: [User]): Promise<number> {
+    async create(objets: [User]): Promise<User[]> {
         for (const user of objets) {
             const {error, value} = UserValidationSchema.validate(user);
             if (error) {

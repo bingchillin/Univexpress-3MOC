@@ -37,23 +37,25 @@ authController.post("/login",async (req, res) => {
 });
 
 authController.post("/register", async (req, res) => {
+    let users: IUser[];
     try {
         const payload = req.body as IUserRegistrationDTO;
-        console.log(payload);
-        const num = await Users.create([
+        console.log("pl %s", payload);
+        users = await Users.create([
             User.fromUserLoginDto(payload)
         ]);
     } catch(err) {
-        console.log(JSON.stringify(err));
+        console.log("err %s", JSON.stringify(err));
         res.status(StatusCodes.BAD_REQUEST).send(err);
         return;
     }
 
-    const token = jwt.sign(req.body, config.JWT_SECRET, {expiresIn: "1800s"});
+    console.log("user: %s", users);
+
+    const token = jwt.sign(users[0], config.JWT_SECRET, {expiresIn: "1800s"});
     
     res.json(token);
 
-    return;
 });
 
 export default authController;

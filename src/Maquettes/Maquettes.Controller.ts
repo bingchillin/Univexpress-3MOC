@@ -10,7 +10,7 @@ maquettesRouter.get("/", (req: Request, res: Response)=> {
 maquettesRouter.post(
     "/", 
     authMiddleware(),
-    forbidAuthMiddleware(["admin", "manager", "user"]), 
+    forbidAuthMiddleware(["admin", "manager"]), 
     (req: Request, res: Response) => {
     return res.json("OK");
 });
