@@ -7,7 +7,7 @@ export type Role = typeof ROLES[number];
 
 export interface IUser {
     email: string;
-    password: string;
+    password?: string;
     registrationDate: number;
     nickname?: string;
     role: Role;
