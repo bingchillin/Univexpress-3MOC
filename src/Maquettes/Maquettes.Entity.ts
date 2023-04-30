@@ -18,8 +18,8 @@ export const MaquetteUploadValidationSchema = Joi.object({
     name: Joi.string().required(),
     contents: Joi.string().required(),
     dateSubmit: Joi.date(),
-    owner: UserValidationSchema,
-});
+    // owner: UserValidationSchema,
+}).options({allowUnknown: true});
 
 export class Maquette implements IMaquette {
     constructor(

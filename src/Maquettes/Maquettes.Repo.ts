@@ -1,5 +1,5 @@
 import Crud from "../dal/_interface";
-import {Maquettes, MaquettesRepository } from "../dal/mongoose/Maquettes.Schema";
+import {Maquettes, MaquettesRepository, MongooseMaquette } from "../dal/mongoose/Maquettes.Schema";
 import { IMaquette, MaquetteUploadDto, MaquetteUploadValidationSchema } from "./Maquettes.Entity";
 
 
