@@ -1,16 +1,15 @@
 import Crud from "../dal/_interface";
 import {Maquettes, MaquettesRepository } from "../dal/mongoose/Maquettes.Schema";
-import { IMaquette, MaquetteUploadDto } from "./Maquettes.Entity";
+import { IMaquette, MaquetteUploadDto, MaquetteUploadValidationSchema } from "./Maquettes.Entity";
 
-type Maquette = typeof Maquettes; 
 
-class MaquettesCrud implements Crud<Maquette> {
+class MaquettesCrud implements Crud<IMaquette> {
     constructor(private repo: MaquettesRepository) {}
 
-    async getAll(): Promise<Maquette[]> {
+    async getAll(): Promise<IMaquette[]> {
         return await this.repo.getAll();
     }
-    async getOne({ criteres }: { [key: string]: string; }): Promise<Maquette | null> {
+    async getOne({ criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
         return await this.repo.getOne({criteres});
     }
     async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
@@ -18,6 +17,15 @@ class MaquettesCrud implements Crud<Maquette> {
     }
     
     async create(objets: IMaquette[]): Promise<IMaquette[]> {
+        for (const maquette of objets) {
+            console.log("maquette : %s", maquette);
+            const {error, value} = MaquetteUploadValidationSchema.validate(maquette);
+            if (error) {
+                console.log(JSON.stringify(error.details));
+                throw JSON.stringify(error.details);
+            }
+        }
+
         return await this.repo.create(objets);
     }
     

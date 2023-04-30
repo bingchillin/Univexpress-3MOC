@@ -1,7 +1,9 @@
 import { NextFunction, Response } from "express";
 import { Role } from "../Users/User.Entity";
-import {expressjwt as jwt, Request as JWTRequest} from "express-jwt";
+import {expressjwt as jwt, Request} from "express-jwt";
 import config from "../services/config";
+
+export type JWTRequest = Request;
 
 
 export const allowAuthMiddleware = (allowedRoles: Role[]) => {
@@ -59,3 +61,4 @@ export const authMiddleware = () => {
         algorithms: ["HS256"],
       });
 }
+

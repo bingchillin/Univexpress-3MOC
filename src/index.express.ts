@@ -14,7 +14,7 @@ import { usersController } from "./Users/Users.Controller";
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '4MB'}));
 
 // app.use(
 //   jwt({

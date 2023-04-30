@@ -1,13 +1,14 @@
 import mongoose, { Schema } from "mongoose";
-import { IMaquette } from "../../Maquettes/Maquettes.Entity";
+import { IMaquette, Maquette } from "../../Maquettes/Maquettes.Entity";
 import Crud from "../_interface";
+import { asUserPojo } from "./Users.Schema";
 
 export const maquetteSchema = new Schema({
     name: {
         type: String,
         required: true
     },
-    url: {
+    contents: {
         type: String,
         required: true,
     },
@@ -22,13 +23,26 @@ export const maquetteSchema = new Schema({
     }
 });
 
+
 export const Maquettes = mongoose.model<IMaquette>("Maquettes", maquetteSchema);
 
-export class MaquettesRepository implements Crud<typeof Maquettes>{
-    async getAll(): Promise<typeof Maquettes[]> {
+export function asMaquettePojo(
+    maquetteDoc: mongoose.Document<unknown, {}, IMaquette>
+): IMaquette {
+    const doc = maquetteDoc.toObject();
+    return new Maquette(
+        doc.name,
+        doc.contents, 
+        doc.dateSubmit, 
+        doc.owner
+        );
+}
+
+export class MaquettesRepository implements Crud<IMaquette>{
+    async getAll(): Promise<IMaquette[]> {
         return await Maquettes.find();
     }
-    async getOne({ criteres }: { [key: string]: string; }): Promise<typeof Maquettes | null> {
+    async getOne({ criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
         return await Maquettes.findOne({criteres});
     }
     async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
@@ -41,7 +55,7 @@ export class MaquettesRepository implements Crud<typeof Maquettes>{
             try {
                 const maquette = new Maquettes(ob);
                 await maquette.save();
-                maquettes.push(maquette.toObject());
+                maquettes.push(asMaquettePojo(maquette));
             } catch(err) {
                 console.error(err);
                 throw err;

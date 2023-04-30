@@ -7,7 +7,7 @@ export type Role = typeof ROLES[number];
 export interface IUser {
     email: string;
     password?: string;
-    registrationDate: number;
+    registrationDate: Date;
     nickname?: string;
     role: Role;
 }
@@ -15,7 +15,7 @@ export interface IUser {
 export type IUserRegistrationDTO = Required<Pick<IUser, 'email' | 'password'>>;
 
 export class User implements IUser {
-    public registrationDate: number;
+    public registrationDate: Date;
     
     constructor(
         public email: string, 
@@ -23,7 +23,7 @@ export class User implements IUser {
         public nickname?: string, 
         public role: Role = "artist") {
 
-        this.registrationDate = Date.now();
+        this.registrationDate = new Date();
     }
 
     static fromUserLoginDto(payload: IUserRegistrationDTO) {
@@ -43,9 +43,9 @@ export const UserValidationSchema = Joi.object({
     email: Joi.string().email().required(),
     nickname: Joi.string().alphanum(),
     password: Joi.string().required().min(8),
-    registrationDate: Joi.number(),
+    registrationDate: Joi.date(),
     role: Joi.string().valid(...ROLES).required(),
-});
+}).options({allowUnknown: true});
 
 export type UserByNicknameDTO = Pick<IUser, 'nickname'>;
 
