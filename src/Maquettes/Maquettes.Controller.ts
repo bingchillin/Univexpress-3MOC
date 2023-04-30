@@ -17,11 +17,13 @@ maquettesRouter.post(
     forbidAuthMiddleware(["admin", "manager"]), 
     async (req: JWTRequest, res: Response) => {
     
-        console.log(req);
-        console.log(req.body);
+        // console.log(req);
+        // console.log(req.body);
+        console.log(req.auth);
         try {
             await maquettesRepo.create([upload(req.body, req.auth as IUser)]);
         } catch(err) {
             res.status(StatusCodes.BAD_REQUEST).send(err);
         }
 });
+

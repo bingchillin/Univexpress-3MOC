@@ -17,7 +17,7 @@ export const maquetteSchema = new Schema({
         required: true,
     },
     owner: {
-        required: true,
+        required: false,
         type: Schema.Types.ObjectId,
         ref: 'Users'
     }
@@ -25,6 +25,8 @@ export const maquetteSchema = new Schema({
 
 
 export const Maquettes = mongoose.model<IMaquette>("Maquettes", maquetteSchema);
+
+export type MongooseMaquette = typeof Maquettes;
 
 export function asMaquettePojo(
     maquetteDoc: mongoose.Document<unknown, {}, IMaquette>
@@ -55,7 +57,7 @@ export class MaquettesRepository implements Crud<IMaquette>{
             try {
                 const maquette = new Maquettes(ob);
                 await maquette.save();
-                maquettes.push(asMaquettePojo(maquette));
+                maquettes.push(maquette);
             } catch(err) {
                 console.error(err);
                 throw err;
