@@ -10,3 +10,5 @@ db.createUser({
 });
 
 db.createCollection("maquettes");
+
+db.users.createIndex({"email": 1}, {unique: true});

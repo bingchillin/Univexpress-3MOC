@@ -78,6 +78,17 @@
 		},
 		{
 			"name": "auth register ok",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"jwt-token\", pm.response.json());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -166,30 +177,6 @@
 					"raw": "{{adresse serveur}}",
 					"host": [
 						"{{adresse serveur}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Creer compte admin",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{adresse serveur}}/add_admin",
-					"host": [
-						"{{adresse serveur}}"
-					],
-					"path": [
-						"add_admin"
 					]
 				}
 			},
@@ -417,6 +404,42 @@
 					"path": [
 						"auth",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add maquette non loggé",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{adresse serveur}}/maquettes/",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"maquettes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add maquette artis",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{adresse serveur}}/maquettes/",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"maquettes",
+						""
 					]
 				}
 			},
