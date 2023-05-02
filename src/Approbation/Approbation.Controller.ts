@@ -1,27 +1,85 @@
 import { Router, Request, Response } from "express";
 import { JWTRequest, authMiddleware, forbidAuthMiddleware } from "../middlewares/authMiddleware";
-import maquettesRepo from "./Approbation.Repo";
+import approbationRepo from "./Approbation.Repo";
 import { StatusCodes } from "http-status-codes";
 import { upload } from "../services/Maquette.Uploader";
 import { IUser } from "../Users/User.Entity";
+import { IMaquette } from "../Maquettes/Maquettes.Entity";
+import app from "../index.express";
 
 export const approbationRouter = Router();
 
-maquettesRouter.get("/", (req: Request, res: Response)=> {
+approbationRouter.get("/", (req: Request, res: Response)=> {
     return res.json("OK");
 });
 
-maquettesRouter.post(
-    "/", 
+approbationRouter.post(
+    "/:id/upVote",
     authMiddleware(),
-    forbidAuthMiddleware(["admin", "manager"]), 
+    forbidAuthMiddleware(["artist"]), 
     async (req: JWTRequest, res: Response) => {
     
         console.log(req);
         console.log(req.body);
-        try {
-            await maquettesRepo.create([upload(req.body, req.auth as IUser)]);
-        } catch(err) {
+
+        try{
+            let appro = await approbationRepo.getOne(req.body);
+            try {
+                if(appro){
+                    try {
+                        appro.flag = +1;
+                        await approbationRepo.create([appro]);
+                    } catch(err) {
+                        res.status(StatusCodes.BAD_REQUEST).send(err);
+                    }
+                }else{
+                    try{
+                        await approbationRepo.update([req.body, {flag: +1}]);
+                    }catch(err) {
+                        res.status(StatusCodes.BAD_REQUEST).send(err);
+                    }
+                }
+            }catch(err) {
+                res.status(StatusCodes.BAD_REQUEST).send(err);
+            }
+        }catch(err) {
             res.status(StatusCodes.BAD_REQUEST).send(err);
         }
+
+
+});
+
+approbationRouter.post(
+    "/:id/downVote",
+    authMiddleware(),
+    forbidAuthMiddleware(["artist"]),  
+    async (req: JWTRequest, res: Response) => {
+    
+        console.log(req);
+        console.log(req.body);
+
+        try{
+            let appro = await approbationRepo.getOne(req.body);
+            try {
+                if(appro){
+                    try {
+                        appro.flag = -1;
+                        await approbationRepo.create([appro]);
+                    } catch(err) {
+                        res.status(StatusCodes.BAD_REQUEST).send(err);
+                    }
+                }else{
+                    try{
+                        await approbationRepo.update([req.body, {flag: -1}]);
+                    }catch(err) {
+                        res.status(StatusCodes.BAD_REQUEST).send(err);
+                    }
+                }
+            }catch(err) {
+                res.status(StatusCodes.BAD_REQUEST).send(err);
+            }
+        }catch(err) {
+            res.status(StatusCodes.BAD_REQUEST).send(err);
+        }
+        
 });

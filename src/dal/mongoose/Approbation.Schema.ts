@@ -5,7 +5,7 @@ import { asUserPojo } from "./Users.Schema";
 
 export const approbationSchema = new Schema({
     flag: {
-        type: String,
+        type: Number,
         required: true
     },
     contents: {
@@ -43,10 +43,10 @@ export class ApprobationRepository implements Crud<IApprobation>{
     async getAll(): Promise<IApprobation[]> {
         return await Approbations.find();
     }
-    async getOne({ criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
+    async getOne({ criteres }: { [key: string]: string; }): Promise<IApprobation | null> {
         return await Approbations.findOne({criteres});
     }
-    async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
+    async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: Number; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
     async create(objets: IApprobation[]): Promise<IApprobation[]> {

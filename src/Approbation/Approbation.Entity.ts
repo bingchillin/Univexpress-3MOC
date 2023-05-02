@@ -4,14 +4,14 @@ import { IMaquette, MaquetteUploadValidationSchema } from "../Maquettes/Maquette
 import { Types } from "mongoose";
 
 export interface IApprobation {
-    flag: String;
+    flag: number;
     contents: string;
     maquette: IMaquette;
     owner: IUser;
 }
 
 export const ApprobationUploadValidationSchema = Joi.object({
-    flag: Joi.string().required(),
+    flag: Joi.number().required(),
     contents: Joi.string().required(),
     maquette: MaquetteUploadValidationSchema,
     owner: UserValidationSchema,
@@ -19,7 +19,7 @@ export const ApprobationUploadValidationSchema = Joi.object({
 
 export class Approbation implements IApprobation {
     constructor(
-        public flag: String,
+        public flag: number,
         public contents: string,
         public maquette: IMaquette,
         public owner: IUser) {}
