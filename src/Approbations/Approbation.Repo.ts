@@ -30,7 +30,6 @@ class ApprobationsCrud implements Crud<IApprobation> {
     delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
-    
 }
 
 export default new ApprobationsCrud(new ApprobationsRepository());

@@ -66,7 +66,13 @@ export class MaquettesRepository implements Crud<IMaquette>{
         }
         return maquettes;
     }
+
     async delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
+    }
+
+    async getMany({ criteres }: { [key: string]: string; }) {
+        return await Maquettes.find({criteres});
+        
     }
 }

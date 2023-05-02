@@ -2,7 +2,7 @@ import { Response, Router } from "express";
 import { JWTRequest, allowAuthMiddleware, authMiddleware } from "../middlewares/authMiddleware";
 import { StatusCodes } from "http-status-codes";
 import ApprobationRepo from "./Approbation.Repo";
-import { makeApprobation } from "../services/Approbation.Factory";
+import { makeApprobation } from "../services/Approbations.Services";
 import { IUser } from "../Users/User.Entity";
 
 export const approbationController = Router();

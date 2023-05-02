@@ -64,9 +64,9 @@ export class ApprobationsRepository implements Crud<IApprobation> {
     delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
-    
+
     async getMany({ criteres }: { [key: string]: string; }) {
-        return await Maquettes.find({criteres});
+        return await Approbations.find({criteres});
         
     }
 
