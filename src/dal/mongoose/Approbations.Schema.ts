@@ -65,4 +65,9 @@ export class ApprobationsRepository implements Crud<IApprobation> {
         throw new Error("Method not implemented.");
     }
     
+    async getMany({ criteres }: { [key: string]: string; }) {
+        return await Maquettes.find({criteres});
+        
+    }
+
 }
