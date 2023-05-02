@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { JWTRequest, authMiddleware, forbidAuthMiddleware } from "../middlewares/authMiddleware";
+import { JWTRequest, authMiddleware, canAccessMaquette, forbidAuthMiddleware } from "../middlewares/authMiddleware";
 import maquettesRepo from "./Maquettes.Repo";
 import { StatusCodes } from "http-status-codes";
 import { upload } from "../services/Maquettes.Services";
@@ -31,16 +31,13 @@ maquettesRouter.post(
         res.send("OK");
 });
 
-maquettesRouter.get("/:maquette_name/is_valid", async function(req, res) {
+maquettesRouter.get("/:maquette_name/is_valid", 
+    authMiddleware(), 
+    canAccessMaquette(),
+    async function(req, res) {
     console.log(req.params.maquette_name);
-    const maquette = await MaquettesRepo.getOne({name: req.params.maquette_name});
 
-    if(!maquette) {
-        res.sendStatus(StatusCodes.NOT_FOUND);
-        return;
-    }
-
-    console.log(maquette);
+    // console.log(maquette);
 
     res.send("Ok");
 });

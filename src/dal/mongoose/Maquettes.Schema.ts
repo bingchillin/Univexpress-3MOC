@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { IMaquette, Maquette } from "../../Maquettes/Maquettes.Entity";
 import Crud from "../_interface";
 import { Users, asUserPojo } from "./Users.Schema";
+import UsersRepo from "../../Users/Users.Repo";
 
 export const maquetteSchema = new Schema({
     name: {
@@ -43,7 +44,15 @@ export class MaquettesRepository implements Crud<IMaquette>{
         return await Maquettes.find();
     }
     async getOne({ ...criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
-        return await Maquettes.findOne({...criteres});
+        const maquette = await Maquettes.findOne({...criteres});
+
+        if(!maquette) {
+            return null;
+        }
+
+        maquette.owner = await UsersRepo.getById(maquette.owner as unknown as string) ?? undefined;
+
+        return maquette;
     }
     async update([{ ...criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
