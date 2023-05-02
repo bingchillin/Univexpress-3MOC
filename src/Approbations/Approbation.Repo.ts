@@ -27,9 +27,15 @@ class ApprobationsCrud implements Crud<IApprobation> {
 
         return await this.repo.create(objets);
     }
+
     delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
+
+    async getMany({ criteres }: { [key: string]: any; }) {
+        return await this.repo.getMany({criteres});
+    }
+
 }
 
 export default new ApprobationsCrud(new ApprobationsRepository());

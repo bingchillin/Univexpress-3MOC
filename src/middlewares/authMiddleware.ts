@@ -1,7 +1,8 @@
 import { NextFunction, Response } from "express";
-import { Role } from "../Users/User.Entity";
+import { IUser, Role } from "../Users/User.Entity";
 import {expressjwt as jwt, Request} from "express-jwt";
 import config from "../services/config";
+import { IMaquette } from "../Maquettes/Maquettes.Entity";
 
 export type JWTRequest = Request;
 
@@ -51,7 +52,6 @@ export const forbidAuthMiddleware = (forbidRoles: Role[]) => {
         } 
 
         next();
-
     }
 }
 
@@ -62,3 +62,28 @@ export const authMiddleware = () => {
       });
 }
 
+/* Un artiste ne peut accéder qu'a ses maquettes */
+export const canAccessMaquette = (maquette: IMaquette) => {
+    return (req: JWTRequest, res: Response, next: NextFunction) => {
+
+        const currentRole: Role = req.auth?.role;
+        
+        if(!currentRole) {
+            res.status(401).send({
+                status: 401,
+                message: "Unknown auth status."
+            });
+            return;
+        }
+
+        if (currentRole == "artist" && maquette.owner?.email != req.auth?.email) {
+            res.status(401).send({
+                status: 401,
+                message: "This is not your maquette."
+            });
+            return;
+        } 
+
+        next();
+    }
+}

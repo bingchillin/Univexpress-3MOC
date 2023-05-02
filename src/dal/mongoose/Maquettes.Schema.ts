@@ -42,10 +42,10 @@ export class MaquettesRepository implements Crud<IMaquette>{
     async getAll(): Promise<IMaquette[]> {
         return await Maquettes.find();
     }
-    async getOne({ criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
-        return await Maquettes.findOne({criteres});
+    async getOne({ ...criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
+        return await Maquettes.findOne({...criteres});
     }
-    async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
+    async update([{ ...criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
     async create(objets: IMaquette[]): Promise<IMaquette[]> {
@@ -67,12 +67,12 @@ export class MaquettesRepository implements Crud<IMaquette>{
         return maquettes;
     }
 
-    async delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
+    async delete([{ ...criteres }]: [{ [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
 
-    async getMany({ criteres }: { [key: string]: string; }) {
-        return await Maquettes.find({criteres});
+    async getMany({ ...criteres }: { [key: string]: string; }) {
+        return await Maquettes.find({...criteres});
         
     }
 }
