@@ -25,7 +25,7 @@ export const approbationSchema = new Schema({
 });
 
 
-export const Approbation = mongoose.model<IApprobation>("Approbation", approbationSchema);
+export const Approbations = mongoose.model<IApprobation>("Approbation", approbationSchema);
 
 export function asApprobationPojo(
     approbationDoc: mongoose.Document<unknown, {}, IApprobation>
@@ -41,28 +41,28 @@ export function asApprobationPojo(
 
 export class ApprobationRepository implements Crud<IApprobation>{
     async getAll(): Promise<IApprobation[]> {
-        return await Approbation.find();
+        return await Approbations.find();
     }
     async getOne({ criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
-        return await Approbation.findOne({criteres});
+        return await Approbations.findOne({criteres});
     }
     async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
     async create(objets: IApprobation[]): Promise<IApprobation[]> {
-        let approbation = [];
+        let approbations = [];
 
         for(const ob of objets) {
             try {
-                const approbation = new Approbation(ob);
+                const approbation = new Approbations(ob);
                 await approbation.save();
-                approbation.push(asApprobationPojo(approbation));
+                approbations.push(asApprobationPojo(approbation));
             } catch(err) {
                 console.error(err);
                 throw err;
             }
         }
-        return approbation;
+        return approbations;
     }
     async delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
