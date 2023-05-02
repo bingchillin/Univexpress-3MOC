@@ -26,8 +26,6 @@ export const maquetteSchema = new Schema({
 
 export const Maquettes = mongoose.model<IMaquette>("Maquettes", maquetteSchema);
 
-export type MongooseMaquette = typeof Maquettes;
-
 export function asMaquettePojo(
     maquetteDoc: mongoose.Document<unknown, {}, IMaquette>
 ): IMaquette {

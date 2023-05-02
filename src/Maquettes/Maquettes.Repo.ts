@@ -1,6 +1,6 @@
 import Crud from "../dal/_interface";
-import {Maquettes, MaquettesRepository, MongooseMaquette } from "../dal/mongoose/Maquettes.Schema";
-import { IMaquette, MaquetteUploadDto, MaquetteUploadValidationSchema } from "./Maquettes.Entity";
+import { MaquettesRepository } from "../dal/mongoose/Maquettes.Schema";
+import { IMaquette, MaquetteUploadValidationSchema } from "./Maquettes.Entity";
 
 
 class MaquettesCrud implements Crud<IMaquette> {
