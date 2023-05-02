@@ -9,9 +9,11 @@ class MaquettesCrud implements Crud<IMaquette> {
     async getAll(): Promise<IMaquette[]> {
         return await this.repo.getAll();
     }
+
     async getOne({ criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
         return await this.repo.getOne({criteres});
     }
+    
     async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         return await this.repo.update([{criteres}, {changements}]);
     }
@@ -33,8 +35,8 @@ class MaquettesCrud implements Crud<IMaquette> {
         return await this.repo.delete([{criteres}]);
     }
 
-    async getValidations({ criteres }: { [key: string]: string; }) {
-        return await this.repo.getValidations({criteres});
+    async getMany({ criteres }: { [key: string]: string; }) {
+        return await this.repo.getMany({criteres});
     }
 }
 

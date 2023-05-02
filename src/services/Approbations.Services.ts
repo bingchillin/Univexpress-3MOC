@@ -8,7 +8,13 @@ export function makeApprobation(approbation: IApprobation, user: IUser) {
     return approbation;
 }
 
-export function isValidated(maquette: IMaquette): boolean {
+/**
+ * Retourn true si validé, false si non validé, null si tous
+ * les manager ont pas encore votés
+ */
+export function isValidated(maquette: IMaquette): boolean | null {
 
-    const approbations = MaquettesRepo
+    const approbations = MaquettesRepo.getMany({});
+
+    return null;
 }

@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { JWTRequest, authMiddleware, forbidAuthMiddleware } from "../middlewares/authMiddleware";
 import maquettesRepo from "./Maquettes.Repo";
 import { StatusCodes } from "http-status-codes";
-import { upload } from "../services/Maquette.Uploader";
+import { upload } from "../services/Maquettes.Services";
 import { IUser } from "../Users/User.Entity";
 
 export const maquettesRouter = Router();
