@@ -19,11 +19,13 @@ maquettesRouter.post(
     
         // console.log(req);
         // console.log(req.body);
-        console.log(req.auth);
+        // console.log(req.auth);
         try {
             await maquettesRepo.create([upload(req.body, req.auth as IUser)]);
         } catch(err) {
             res.status(StatusCodes.BAD_REQUEST).send(err);
         }
+
+        res.send("OK");
 });
 

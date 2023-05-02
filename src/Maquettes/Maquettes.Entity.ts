@@ -1,12 +1,11 @@
 import Joi from "joi";
 import { IUser, UserValidationSchema } from "../Users/User.Entity";
-import { Types } from "mongoose";
 
 export interface IMaquette {
     name: string;
     contents: string;
     dateSubmit: Date;
-    owner: IUser;
+    owner?: IUser;
 }
 
 export interface MaquetteUploadDto {
@@ -19,14 +18,14 @@ export const MaquetteUploadValidationSchema = Joi.object({
     contents: Joi.string().required(),
     dateSubmit: Joi.date(),
     // owner: UserValidationSchema,
-}).options({allowUnknown: true});
+}).options({allowUnknown: true}); 
 
 export class Maquette implements IMaquette {
     constructor(
         public name: string, 
         public contents: string,
         public dateSubmit: Date, 
-        public owner: IUser) {}
+        public owner?: IUser) {}
 }
 
 // export class Maquette implements IMaquette {

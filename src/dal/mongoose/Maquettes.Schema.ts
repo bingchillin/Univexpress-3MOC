@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { IMaquette, Maquette } from "../../Maquettes/Maquettes.Entity";
 import Crud from "../_interface";
-import { asUserPojo } from "./Users.Schema";
+import { Users, asUserPojo } from "./Users.Schema";
 
 export const maquetteSchema = new Schema({
     name: {
@@ -25,8 +25,6 @@ export const maquetteSchema = new Schema({
 
 
 export const Maquettes = mongoose.model<IMaquette>("Maquettes", maquetteSchema);
-
-export type MongooseMaquette = typeof Maquettes;
 
 export function asMaquettePojo(
     maquetteDoc: mongoose.Document<unknown, {}, IMaquette>
@@ -53,11 +51,14 @@ export class MaquettesRepository implements Crud<IMaquette>{
     async create(objets: IMaquette[]): Promise<IMaquette[]> {
         let maquettes = [];
 
-        for(const ob of objets) {
+        for(const maq of objets) {
             try {
-                const maquette = new Maquettes(ob);
+                const own = maq.owner;
+                maq.owner = await Users.findOne({email: maq.owner?.email})  ?? undefined;
+                const maquette = new Maquettes(maq);
                 await maquette.save();
-                maquettes.push(maquette);
+                maq.owner = own;
+                maquettes.push(maq);
             } catch(err) {
                 console.error(err);
                 throw err;
