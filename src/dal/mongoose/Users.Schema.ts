@@ -57,6 +57,11 @@ export class UsersRepository implements Crud<IUser>{
 
         return asUserPojo(user) ?? null;
     }
+
+    async getById(id: string) {
+        return await Users.findById(id);
+    }
+    
     async update([{ ...criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }

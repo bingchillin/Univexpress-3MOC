@@ -1,6 +1,6 @@
 import Crud from "../dal/_interface";
-import {Maquettes, MaquettesRepository } from "../dal/mongoose/Maquettes.Schema";
-import { IMaquette, MaquetteUploadDto, MaquetteUploadValidationSchema } from "./Maquettes.Entity";
+import { MaquettesRepository } from "../dal/mongoose/Maquettes.Schema";
+import { IMaquette, MaquetteUploadValidationSchema } from "./Maquettes.Entity";
 
 
 class MaquettesCrud implements Crud<IMaquette> {
@@ -9,9 +9,13 @@ class MaquettesCrud implements Crud<IMaquette> {
     async getAll(): Promise<IMaquette[]> {
         return await this.repo.getAll();
     }
-    async getOne({ criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
-        return await this.repo.getOne({criteres});
+
+    async getOne({ ...criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
+        console.log({...criteres});
+        
+        return await this.repo.getOne({...criteres});
     }
+
     async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         return await this.repo.update([{criteres}, {changements}]);
     }
@@ -31,6 +35,10 @@ class MaquettesCrud implements Crud<IMaquette> {
     
     async delete([{criteres }]: [{ [key: string]: string; }]): Promise<number> {
         return await this.repo.delete([{criteres}]);
+    }
+
+    async getMany({ criteres }: { [key: string]: string; }) {
+        return await this.repo.getMany({criteres});
     }
 }
 

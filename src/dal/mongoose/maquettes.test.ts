@@ -35,7 +35,7 @@ describe("dal mongoose maquette", ()=> {
         const maquette = new Maquettes({
             name: "toto",
             dateSubmit: Date.now(),
-            url: "toto"
+            contents: "toto"
         });
 
         const doc = await maquette.save();
@@ -59,6 +59,6 @@ describe("dal mongoose maquette", ()=> {
 
         expect(maquettes).toHaveLength(1);
         expect(maquettes[0].name).toBe("toto");
-        expect(maquettes[0].url).toBe("toto");
+        expect(maquettes[0].contents).toBe("toto");
     });
 });
