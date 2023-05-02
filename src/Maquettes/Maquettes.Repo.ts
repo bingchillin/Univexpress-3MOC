@@ -32,6 +32,10 @@ class MaquettesCrud implements Crud<IMaquette> {
     async delete([{criteres }]: [{ [key: string]: string; }]): Promise<number> {
         return await this.repo.delete([{criteres}]);
     }
+
+    async getValidations({ criteres }: { [key: string]: string; }) {
+        return await this.repo.getValidations({criteres});
+    }
 }
 
 export default new MaquettesCrud(new MaquettesRepository());
