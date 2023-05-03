@@ -103,7 +103,9 @@ export class UsersRepository implements Crud<IUser>{
             return users;
     }
 
-    async delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
-        throw new Error("Method not implemented.");
+    async delete(users: [{ [key: string]: string; }]): Promise<void> {
+        for(const user of users) {
+            await Users.deleteOne({...user});
+        }
     }
 }
