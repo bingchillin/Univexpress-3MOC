@@ -84,8 +84,8 @@ export const canAccessMaquette = () => {
             return;
         }
 
-        console.log("maquette owner %s", JSON.stringify(maquette.owner));
-        console.log("auth %s", JSON.stringify(req.auth));
+        // console.log("maquette owner %s", JSON.stringify(maquette.owner));
+        // console.log("auth %s", JSON.stringify(req.auth));
         if (currentRole == "artist" && maquette.owner?.email != req.auth?.email) {
             res.status(401).send({
                 status: 401,
