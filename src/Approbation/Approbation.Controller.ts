@@ -6,6 +6,7 @@ import { upload } from "../services/Maquette.Uploader";
 import { IUser } from "../Users/User.Entity";
 import { IMaquette } from "../Maquettes/Maquettes.Entity";
 import app from "../index.express";
+import { Approbation } from "./Approbation.Entity";
 
 export const approbationRouter = Router();
 
@@ -22,6 +23,12 @@ approbationRouter.post(
         console.log(req);
         console.log(req.body);
 
+        try{
+            const appro = approbationRepo.create([Approbation.createApprobationUp(req.body)])
+        }catch(err) {
+            res.status(StatusCodes.BAD_REQUEST).send(err);
+        }
+        /*
         try{
             let appro = await approbationRepo.getOne(req.body);
             try {
@@ -44,7 +51,7 @@ approbationRouter.post(
             }
         }catch(err) {
             res.status(StatusCodes.BAD_REQUEST).send(err);
-        }
+        }*/
 
 
 });
@@ -58,6 +65,13 @@ approbationRouter.post(
         console.log(req);
         console.log(req.body);
 
+        try{
+            const appro = approbationRepo.create([Approbation.createApprobationDown(req.body)])
+        }catch(err) {
+            res.status(StatusCodes.BAD_REQUEST).send(err);
+        }
+
+        /*
         try{
             let appro = await approbationRepo.getOne(req.body);
             try {
@@ -81,5 +95,6 @@ approbationRouter.post(
         }catch(err) {
             res.status(StatusCodes.BAD_REQUEST).send(err);
         }
+        */
         
 });
