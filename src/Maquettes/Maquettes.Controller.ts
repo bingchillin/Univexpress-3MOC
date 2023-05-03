@@ -31,6 +31,7 @@ maquettesRouter.post(
         res.send("OK");
 });
 
+// return true si validé, false si non validé, null si tous les manager ont pas encore voté
 maquettesRouter.get("/:maquette_name/is_valid", 
     authMiddleware(), 
     canAccessMaquette(),
