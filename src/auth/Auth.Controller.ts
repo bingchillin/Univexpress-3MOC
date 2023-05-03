@@ -29,7 +29,9 @@ authController.post("/login",async (req, res) => {
 
     user.password = "*deleted*";  // evite que le mdp soit dans le jwt
 
-    const token = jwt.sign(user, config.JWT_SECRET, { expiresIn: "1800s" });
+    const plainUser = Object.assign({}, user);
+
+    const token = jwt.sign(plainUser, config.JWT_SECRET, { expiresIn: "1800s" });
 
     res.json(token);
 
