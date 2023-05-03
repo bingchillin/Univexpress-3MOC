@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { allowAuthMiddleware, authMiddleware } from "../middlewares/authMiddleware";
-import { UsersRepository } from "../dal/mongoose/Users.Schema";
 import UsersRepo from "./Users.Repo";
 import { User } from "./User.Entity";
 import { StatusCodes } from "http-status-codes";

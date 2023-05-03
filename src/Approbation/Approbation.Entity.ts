@@ -1,7 +1,6 @@
 import Joi from "joi";
 import { IUser, UserValidationSchema } from "../Users/User.Entity";
 import { IMaquette, MaquetteUploadValidationSchema } from "../Maquettes/Maquettes.Entity";
-import { Types } from "mongoose";
 
 export interface IApprobation {
     flag: number;

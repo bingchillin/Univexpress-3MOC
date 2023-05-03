@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { IMaquette, Maquette } from "../../Maquettes/Maquettes.Entity";
 import Crud from "../_interface";
-import { Users, asUserPojo } from "./Users.Schema";
+import { Users } from "./Users.Schema";
 import UsersRepo from "../../Users/Users.Repo";
 import { IUser } from "../../Users/User.Entity";
 
