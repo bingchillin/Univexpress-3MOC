@@ -14,9 +14,7 @@ export function makeApprobation(approbation: IApprobation, user: IUser) {
  */
 export function isValidated(maquette: IMaquette): boolean | null {
 
-    const approbations = ApprobationRepo.getMany({maquette: maquette});
-
-    console.log("approbations %s", JSON.stringify(approbations));
+    // const approbations = ApprobationRepo.getMany({maquette: maquette});
 
     return null;
 }

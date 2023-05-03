@@ -35,7 +35,7 @@ class UsersCrud implements Crud<User> {
         for (const user of objets) {
             const {error, value} = UserValidationSchema.validate(user);
             if (error) {
-                console.log(JSON.stringify(error.details));
+
                 throw JSON.stringify(error.details);
             }
         }
@@ -43,7 +43,7 @@ class UsersCrud implements Crud<User> {
         return await this.repo.create(objets);
     }
 
-    async delete([{criteres }]: [{ [key: string]: string; }]): Promise<number> {
+    async delete([{criteres }]: [{ [key: string]: string; }]): Promise<number | void> {
         return await this.repo.delete([{criteres}]);
     }
 

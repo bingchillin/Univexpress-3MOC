@@ -10,8 +10,8 @@ export type JWTRequest = Request;
 
 export const allowAuthMiddleware = (allowedRoles: Role[]) => {
     return (req: JWTRequest, res: Response, next: NextFunction) => {
-        console.log(req.auth);
-        const currentRole: Role = req.auth?.role
+
+        const currentRole: Role = req.auth?.role;
 
         if(currentRole == "admin") {
             // an admin can do everything by default
@@ -24,12 +24,12 @@ export const allowAuthMiddleware = (allowedRoles: Role[]) => {
             res.status(401).send({
                 status: 401,
                 message: "You cannot access this resource."
-            })
+            });
         } else {
             next();
         }
-    }
-}
+    };
+};
 
 export const forbidAuthMiddleware = (forbidRoles: Role[]) => {
     return (req: JWTRequest, res: Response, next: NextFunction) => {
@@ -53,8 +53,8 @@ export const forbidAuthMiddleware = (forbidRoles: Role[]) => {
         } 
 
         next();
-    }
-}
+    };
+};
 
 export const bannedAuthMiddleware = () => {
     return (req: JWTRequest, res: Response, next: NextFunction) => {
@@ -70,15 +70,15 @@ export const bannedAuthMiddleware = () => {
         } 
 
         next();
-    }
-}
+    };
+};
 
 export const authMiddleware = () => {
     return jwt({
         secret: config.JWT_SECRET,
         algorithms: ["HS256"],
       });
-}
+};
 
 /* Un artiste ne peut accéder qu'a ses maquettes */
 export const canAccessMaquette = () => {
@@ -109,5 +109,5 @@ export const canAccessMaquette = () => {
         } 
 
         next();
-    }
-}
+    };
+};

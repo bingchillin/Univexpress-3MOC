@@ -1,8 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { IUser, User } from "../../Users/User.Entity";
 import Crud from "../_interface";
-import { assert } from "console";
-
 
 export const userSchema = new Schema({
     email: {
@@ -34,10 +32,6 @@ export const userSchema = new Schema({
 });
 
 export function asUserPojo(userDoc: mongoose.Document<unknown, {}, IUser> | IUser | null): {[Property in keyof IUser]: any} | null {
-    // if(!(userDoc instanceof mongoose.Document)) {
-    //     return userDoc;
-    // }
-    console.log(userDoc);
     if(userDoc === null) return null;
 
     let doc = userDoc as IUser;
@@ -45,8 +39,6 @@ export function asUserPojo(userDoc: mongoose.Document<unknown, {}, IUser> | IUse
     if(userDoc instanceof mongoose.Document) {
         doc = userDoc.toObject();
     }
-
-    console.log("doc %s", JSON.stringify(doc));
 
     return {
         email: doc.email, 

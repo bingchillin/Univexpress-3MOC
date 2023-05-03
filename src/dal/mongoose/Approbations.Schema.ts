@@ -12,12 +12,12 @@ export const approbationsSchema = new Schema({
     voter: {
         requireed: true,
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: "Users"
     },
     maquette: {
         required: true,
         type: Schema.Types.ObjectId,
-        ref: 'Maquettes',
+        ref: "Maquettes",
     },
     comment: {
         type: String,
@@ -40,7 +40,7 @@ export class ApprobationsRepository implements Crud<IApprobation> {
         throw new Error("Method not implemented.");
     }
     async create(objets: IApprobation[]): Promise<IApprobation[]> {
-        let approbations = [];
+        const approbations = [];
 
         for(const appr of objets) {
             try {

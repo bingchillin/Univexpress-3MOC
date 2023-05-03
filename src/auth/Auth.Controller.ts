@@ -51,18 +51,15 @@ authController.post("/register", async (req, res) => {
     }
 
     try {
-        console.log("pl %s", payload);
+
         users = await Users.create([
             User.fromUserLoginDto(payload)
         ]);
     } catch(err) {
-        console.log("err %s", JSON.stringify(err));
+
         res.status(StatusCodes.BAD_REQUEST).send(err);
         return;
     }
-
-
-    console.log("user: %s", users);
 
     const token = jwt.sign(users[0], config.JWT_SECRET, {expiresIn: "1800s"});
     

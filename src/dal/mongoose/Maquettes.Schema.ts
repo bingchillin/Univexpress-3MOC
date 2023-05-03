@@ -1,9 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 import { IMaquette, Maquette } from "../../Maquettes/Maquettes.Entity";
 import Crud from "../_interface";
-import { Users } from "./Users.Schema";
+import { Users, asUserPojo } from "./Users.Schema";
 import UsersRepo from "../../Users/Users.Repo";
-import { IUser } from "../../Users/User.Entity";
 
 export const maquetteSchema = new Schema({
     name: {
@@ -21,7 +20,7 @@ export const maquetteSchema = new Schema({
     owner: {
         required: false,
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: "Users"
     }
 });
 
@@ -47,15 +46,13 @@ export class MaquettesRepository implements Crud<IMaquette>{
     }
 
     async getOne({ ...criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
-        let maquette = await Maquettes.findOne({...criteres});
+        const maquette = await Maquettes.findOne({...criteres});
 
         if(!maquette) {
             return null;
         }
 
         const owner = asUserPojo(await UsersRepo.getById(maquette.owner as unknown as string)) ?? undefined;
-
-        // console.log("owner %s", JSON.stringify(owner));
 
         const imaquette = asMaquettePojo(maquette) as IMaquette;
         imaquette.owner = owner;
@@ -68,7 +65,7 @@ export class MaquettesRepository implements Crud<IMaquette>{
     }
     
     async create(objets: IMaquette[]): Promise<IMaquette[]> {
-        let maquettes = [];
+        const maquettes = [];
 
         for(const maq of objets) {
             try {

@@ -14,12 +14,12 @@ export const approbationSchema = new Schema({
     maquette: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: 'Maquettes'
+        ref: "Maquettes"
     },
     owner: {
         required: true,
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: "Users"
     }
 });
 
@@ -45,11 +45,11 @@ export class ApprobationRepository implements Crud<IApprobation>{
     async getOne({ criteres }: { [key: string]: string; }): Promise<IApprobation | null> {
         return await Approbations.findOne({criteres});
     }
-    async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: Number; }]): Promise<number> {
+    async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: number; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
     async create(objets: IApprobation[]): Promise<IApprobation[]> {
-        let approbations = [];
+        const approbations = [];
 
         for(const ob of objets) {
             try {

@@ -15,7 +15,7 @@ import { approbationController } from "./Approbations/Approbation.Controller";
 
 const app = express();
 
-app.use(bodyParser.json({limit: '4MB'}));
+app.use(bodyParser.json({limit: "4MB"}));
 
 // app.use(
 //   jwt({

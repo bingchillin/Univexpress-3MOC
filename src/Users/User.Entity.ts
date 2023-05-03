@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 // https://stackoverflow.com/questions/44480644/string-union-to-string-array
-const ROLES = ['admin', 'manager', 'artist'] as const;
+const ROLES = ["admin", "manager", "artist"] as const;
 export type Role = typeof ROLES[number];
 
 export interface IUser {
@@ -13,7 +13,7 @@ export interface IUser {
     isBanned: boolean;
 }
 
-export type IUserRegistrationDTO = Pick<IUser, 'email' | 'password' | 'nickname'>;
+export type IUserRegistrationDTO = Pick<IUser, "email" | "password" | "nickname">;
 
 export class User implements IUser {
     public registrationDate: Date;
@@ -50,5 +50,5 @@ export const UserValidationSchema = Joi.object({
     isBanned: Joi.boolean()
 }).options({allowUnknown: true});
 
-export type UserByNicknameDTO = Pick<IUser, 'nickname'>;
+export type UserByNicknameDTO = Pick<IUser, "nickname">;
 

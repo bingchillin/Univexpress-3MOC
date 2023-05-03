@@ -17,7 +17,7 @@ approbationRouter.post(
     async (req: JWTRequest, res: Response) => {
 
         try{
-            const appro = approbationRepo.create([Approbation.createApprobationUp(req.body)])
+            const appro = approbationRepo.create([Approbation.createApprobationUp(req.body)]);
         }catch(err) {
             res.status(StatusCodes.BAD_REQUEST).send(err);
         }
@@ -30,7 +30,7 @@ approbationRouter.post(
     async (req: JWTRequest, res: Response) => {
 
         try{
-            const appro = approbationRepo.create([Approbation.createApprobationDown(req.body)])
+            const appro = approbationRepo.create([Approbation.createApprobationDown(req.body)]);
         }catch(err) {
             res.status(StatusCodes.BAD_REQUEST).send(err);
         }

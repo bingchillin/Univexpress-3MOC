@@ -11,7 +11,6 @@ class MaquettesCrud implements Crud<IMaquette> {
     }
 
     async getOne({ ...criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
-        console.log({...criteres});
         
         return await this.repo.getOne({...criteres});
     }
@@ -22,10 +21,10 @@ class MaquettesCrud implements Crud<IMaquette> {
     
     async create(objets: IMaquette[]): Promise<IMaquette[]> {
         for (const maquette of objets) {
-            console.log("maquette : %s", maquette);
+
             const {error, value} = MaquetteUploadValidationSchema.validate(maquette);
             if (error) {
-                console.log(JSON.stringify(error.details));
+
                 throw JSON.stringify(error.details);
             }
         }

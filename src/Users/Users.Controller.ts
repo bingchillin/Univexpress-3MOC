@@ -36,4 +36,4 @@ usersController.delete(
         await UsersRepo.delete([{email: req.params.user_email}]);
 
         res.sendStatus(StatusCodes.NO_CONTENT);
-    })
+    });
