@@ -179,7 +179,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"toto@toto.com\",\r\n    \"password\": \"toto\"\r\n}",
+					"raw": "{\r\n    \"email\": \"toto@toto.com\",\r\n    \"password\": \"totototo\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -235,6 +235,34 @@
 					"path": [
 						"auth",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "supprimer compte toto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{adresse serveur}}/users/toto@toto.com",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"users",
+						"toto@toto.com"
 					]
 				}
 			},
