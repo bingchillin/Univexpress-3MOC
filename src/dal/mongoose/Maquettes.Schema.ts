@@ -3,6 +3,7 @@ import { IMaquette, Maquette } from "../../Maquettes/Maquettes.Entity";
 import Crud from "../_interface";
 import { Users, asUserPojo } from "./Users.Schema";
 import UsersRepo from "../../Users/Users.Repo";
+import { IUser } from "../../Users/User.Entity";
 
 export const maquetteSchema = new Schema({
     name: {
@@ -40,23 +41,32 @@ export function asMaquettePojo(
 }
 
 export class MaquettesRepository implements Crud<IMaquette>{
+    
     async getAll(): Promise<IMaquette[]> {
         return await Maquettes.find();
     }
+
     async getOne({ ...criteres }: { [key: string]: string; }): Promise<IMaquette | null> {
-        const maquette = await Maquettes.findOne({...criteres});
+        let maquette = await Maquettes.findOne({...criteres});
 
         if(!maquette) {
             return null;
         }
 
-        maquette.owner = await UsersRepo.getById(maquette.owner as unknown as string) ?? undefined;
+        const owner = asUserPojo(await UsersRepo.getById(maquette.owner as unknown as string)) ?? undefined;
 
-        return maquette;
+        // console.log("owner %s", JSON.stringify(owner));
+
+        const imaquette = asMaquettePojo(maquette) as IMaquette;
+        imaquette.owner = owner;
+
+        return imaquette;
     }
+
     async update([{ ...criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
+    
     async create(objets: IMaquette[]): Promise<IMaquette[]> {
         let maquettes = [];
 
