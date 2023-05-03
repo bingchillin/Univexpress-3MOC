@@ -10,6 +10,7 @@ export interface IUser {
     registrationDate: Date;
     nickname?: string;
     role: Role;
+    isBanned: boolean;
 }
 
 export type IUserRegistrationDTO = Required<Pick<IUser, 'email' | 'password'>>;
@@ -21,7 +22,8 @@ export class User implements IUser {
         public email: string, 
         public password: string, 
         public nickname?: string, 
-        public role: Role = "artist") {
+        public role: Role = "artist",
+        public isBanned: boolean = false) {
 
         this.registrationDate = new Date();
     }
@@ -45,6 +47,7 @@ export const UserValidationSchema = Joi.object({
     password: Joi.string().required().min(8),
     registrationDate: Joi.date(),
     role: Joi.string().valid(...ROLES).required(),
+    isBanned: Joi.boolean()
 }).options({allowUnknown: true});
 
 export type UserByNicknameDTO = Pick<IUser, 'nickname'>;

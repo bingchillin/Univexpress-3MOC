@@ -24,6 +24,11 @@ export const userSchema = new Schema({
     role: {
         type: String,
         required: true
+    },
+    isBanned: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 
@@ -37,7 +42,8 @@ export function asUserPojo(userDoc: mongoose.Document<unknown, {}, IUser> | IUse
         password: doc.password ?? "*deleted*", 
         nickname: doc.nickname, 
         role: doc.role,
-        registrationDate: doc.registrationDate
+        registrationDate: doc.registrationDate,
+        isBanned: doc.isBanned
     };
 }
 

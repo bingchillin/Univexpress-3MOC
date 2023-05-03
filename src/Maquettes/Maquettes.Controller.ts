@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { JWTRequest, authMiddleware, canAccessMaquette, forbidAuthMiddleware } from "../middlewares/authMiddleware";
+import { JWTRequest, authMiddleware, canAccessMaquette, forbidAuthMiddleware, bannedAuthMiddleware } from "../middlewares/authMiddleware";
 import maquettesRepo from "./Maquettes.Repo";
 import { StatusCodes } from "http-status-codes";
 import { upload } from "../services/Maquettes.Services";
@@ -16,7 +16,8 @@ maquettesRouter.get("/", (req: Request, res: Response)=> {
 maquettesRouter.post(
     "/", 
     authMiddleware(),
-    forbidAuthMiddleware(["admin", "manager"]), 
+    forbidAuthMiddleware(["admin", "manager"]),
+    bannedAuthMiddleware(),
     async (req: JWTRequest, res: Response) => {
     
         // console.log(req);
