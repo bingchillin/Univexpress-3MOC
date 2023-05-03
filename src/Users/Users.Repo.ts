@@ -51,6 +51,11 @@ class UsersCrud implements Crud<User> {
 
         return await this.getOne({nickname}); 
     }
+
+    async isNicknameTaken(nickname: string) {
+        return await this.repo.isNicknameTaken(nickname);
+    }
+
 }
 
 export default new UsersCrud(new UsersRepository());

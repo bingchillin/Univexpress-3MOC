@@ -159,6 +159,88 @@
 			"response": []
 		},
 		{
+			"name": "auth register avec nickname",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"jwt-token\", pm.response.json());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"toto3@toto.com\",\r\n    \"password\": \"totototo\",\r\n    \"nickname\": \"toto\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adresse serveur}}/auth/register",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth register avec nickname deja pris",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"jwt-token\", pm.response.json());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"toto4@toto.com\",\r\n    \"password\": \"totototo\",\r\n    \"nickname\": \"toto\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adresse serveur}}/auth/register",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "auth login toto",
 			"event": [
 				{
@@ -179,7 +261,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"toto@toto.com\",\r\n    \"password\": \"toto\"\r\n}",
+					"raw": "{\r\n    \"email\": \"toto@toto.com\",\r\n    \"password\": \"totototo\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -235,6 +317,34 @@
 					"path": [
 						"auth",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "supprimer compte toto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{adresse serveur}}/users/toto@toto.com",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"users",
+						"toto@toto.com"
 					]
 				}
 			},
@@ -734,6 +844,34 @@
 						"maquettes",
 						"photodechat.jpg",
 						"raw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get maquette raw data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{adresse serveur}}/maquettes/photodechat.jpg",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"maquettes",
+						"photodechat.jpg"
 					]
 				}
 			},

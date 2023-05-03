@@ -6,13 +6,13 @@ export type Role = typeof ROLES[number];
 
 export interface IUser {
     email: string;
-    password?: string;
+    password: string;
     registrationDate: Date;
     nickname?: string;
     role: Role;
 }
 
-export type IUserRegistrationDTO = Required<Pick<IUser, 'email' | 'password'>>;
+export type IUserRegistrationDTO = Pick<IUser, 'email' | 'password' | 'nickname'>;
 
 export class User implements IUser {
     public registrationDate: Date;
@@ -27,7 +27,7 @@ export class User implements IUser {
     }
 
     static fromUserLoginDto(payload: IUserRegistrationDTO) {
-        return new this(payload.email, payload.password);
+        return new this(payload.email, payload.password, payload.nickname);
     }
 
     static createAsManager(payload: IUserRegistrationDTO) {

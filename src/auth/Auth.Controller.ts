@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import config from "../services/config";
 import Users from "../Users/Users.Repo";
 import { IUserRegistrationDTO, User, IUser } from "../Users/User.Entity";
+import UsersRepo from "../Users/Users.Repo";
 
 const authController = Router();
 
@@ -40,8 +41,16 @@ authController.post("/login",async (req, res) => {
 
 authController.post("/register", async (req, res) => {
     let users: IUser[];
+    const payload = req.body as IUserRegistrationDTO;
+
+    if(payload.nickname !== undefined) {
+        if(await UsersRepo.isNicknameTaken(payload.nickname)) {
+            res.sendStatus(StatusCodes.CONFLICT);
+            return;
+        }
+    }
+
     try {
-        const payload = req.body as IUserRegistrationDTO;
         console.log("pl %s", payload);
         users = await Users.create([
             User.fromUserLoginDto(payload)
@@ -51,6 +60,7 @@ authController.post("/register", async (req, res) => {
         res.status(StatusCodes.BAD_REQUEST).send(err);
         return;
     }
+
 
     console.log("user: %s", users);
 
