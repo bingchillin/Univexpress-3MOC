@@ -58,10 +58,14 @@ maquettesRouter.get("/:maquette_name/raw",
 
         // console.log("maq %", JSON.stringify(maquette)); 
 
-        res.writeHead(200, {'Content-Type': 'image/jpeg'});
-        res.send(Buffer.from(maquette.contents, 'base64').toString('ascii'));
+        const cont = Buffer.from(maquette.contents, 'base64').toString('ascii');
+        res.writeHead(200, { 
+            'Content-Type': 'image/jpeg' ,
+            'Content-Length': cont.length,
+        });
+        res.write(cont);
         res.end();
-        // res.header({'Content-Type': 'image/jpeg'}).send(
+            // res.header({'Content-Type': 'image/jpeg'}).send(
             
         // );
 });
