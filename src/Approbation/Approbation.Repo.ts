@@ -12,8 +12,9 @@ class ApprobationCrud implements Crud<IApprobation> {
     async getOne({ criteres }: { [key: string]: string; }): Promise<IApprobation | null> {
         return await this.repo.getOne({criteres});
     }
-    async update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: Number; }]): Promise<number> {
-        return await this.repo.update([{criteres}, {changements}]);
+    
+    update([{ criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
+        throw new Error("Method not implemented.");
     }
     
     async create(objets: IApprobation[]): Promise<IApprobation[]> {
