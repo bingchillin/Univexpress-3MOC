@@ -15,9 +15,6 @@ approbationRouter.post(
     authMiddleware(),
     forbidAuthMiddleware(["artist"]), 
     async (req: JWTRequest, res: Response) => {
-    
-        console.log(req);
-        console.log(req.body);
 
         try{
             const appro = approbationRepo.create([Approbation.createApprobationUp(req.body)])
@@ -31,9 +28,6 @@ approbationRouter.post(
     authMiddleware(),
     forbidAuthMiddleware(["artist"]),  
     async (req: JWTRequest, res: Response) => {
-    
-        console.log(req);
-        console.log(req.body);
 
         try{
             const appro = approbationRepo.create([Approbation.createApprobationDown(req.body)])

@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IUser, UserValidationSchema, UserByNicknameDTO } from "../Users/User.Entity";
+import { IUser, UserValidationSchema } from "../Users/User.Entity";
 import { IMaquette, MaquetteUploadValidationSchema } from "../Maquettes/Maquettes.Entity";
 
 export interface IApprobation {

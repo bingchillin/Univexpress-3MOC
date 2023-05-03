@@ -11,6 +11,10 @@ class UsersCrud implements Crud<User> {
         return await this.repo.getAll();
     }
 
+    async getAllManager(): Promise<User[]> {
+        return await this.repo.getAllManager();
+    }
+
     async getById(id: string) {
         return await this.repo.getById(id);
     }

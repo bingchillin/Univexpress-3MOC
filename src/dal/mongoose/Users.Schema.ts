@@ -49,6 +49,11 @@ export class UsersRepository implements Crud<IUser>{
     async getAll(): Promise<IUser[]> {
         return await Users.find();
     }
+
+    async getAllManager(): Promise<IUser[]> {
+        return await Users.find({role: "manager"});
+    }
+
     async getOne({ ...criteres }: { [key: string]: string; }): Promise<IUser | null> {
 
         const user = await Users.findOne({...criteres});
@@ -61,12 +66,17 @@ export class UsersRepository implements Crud<IUser>{
     async getById(id: string) {
         return await Users.findById(id);
     }
+
+    async isNicknameTaken(nickname: string) {
+        const user = await Users.findOne({ nickname: nickname });
+        return user !== null;
+    }
     
     async update([{ ...criteres }, { changements }]: [{ [key: string]: string; }, { [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }
+
     async create(objets: IUser[]): Promise<User[]> {
-        // this.Users.on('index', async (err) => {
             const users = [];
 
             for(const ob of objets) {
@@ -79,9 +89,9 @@ export class UsersRepository implements Crud<IUser>{
                     throw err;
                 }
             }
-            return users; 
-        // });
+            return users;
     }
+
     async delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
         throw new Error("Method not implemented.");
     }

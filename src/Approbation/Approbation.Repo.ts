@@ -1,5 +1,5 @@
 import Crud from "../dal/_interface";
-import {Approbations, ApprobationRepository } from "../dal/mongoose/Approbation.Schema";
+import { ApprobationRepository } from "../dal/mongoose/Approbation.Schema";
 import { IApprobation, ApprobationUploadValidationSchema } from "./Approbation.Entity";
 
 
