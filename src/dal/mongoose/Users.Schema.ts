@@ -25,6 +25,11 @@ export const userSchema = new Schema({
     role: {
         type: String,
         required: true
+    },
+    isBanned: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 
@@ -48,7 +53,8 @@ export function asUserPojo(userDoc: mongoose.Document<unknown, {}, IUser> | IUse
         password: "*deleted*", 
         nickname: doc.nickname, 
         role: doc.role,
-        registrationDate: doc.registrationDate
+        registrationDate: doc.registrationDate,
+        isBanned: doc.isBanned
     };
 }
 
@@ -103,7 +109,9 @@ export class UsersRepository implements Crud<IUser>{
             return users;
     }
 
-    async delete([{ criteres }]: [{ [key: string]: string; }]): Promise<number> {
-        throw new Error("Method not implemented.");
+    async delete(users: [{ [key: string]: string; }]): Promise<void> {
+        for(const user of users) {
+            await Users.deleteOne({...user});
+        }
     }
 }

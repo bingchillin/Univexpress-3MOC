@@ -56,6 +56,23 @@ export const forbidAuthMiddleware = (forbidRoles: Role[]) => {
     }
 }
 
+export const bannedAuthMiddleware = () => {
+    return (req: JWTRequest, res: Response, next: NextFunction) => {
+
+        const currentBan = req.auth?.isBanned;
+
+        if (currentBan == true) {
+            res.status(401).send({
+                status: 401,
+                message: "You cannot access this resource."
+            });
+            return;
+        } 
+
+        next();
+    }
+}
+
 export const authMiddleware = () => {
     return jwt({
         secret: config.JWT_SECRET,

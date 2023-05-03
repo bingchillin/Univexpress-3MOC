@@ -3,5 +3,5 @@ export default interface Crud<T> {
     getOne({criteres}: {[key: string]: string}): Promise<T | null>;
     update([{criteres}, {changements}]: [{[key: string]: string}, {[key: string]: string} | {[key: string]: Number}]): Promise<number>;
     create([objet]: T[]): Promise<T[]>;
-    delete([{criteres}]: [{[key: string]: string}]): Promise<number>;
+    delete([{criteres}]: [{[key: string]: string}]): Promise<number | void>;
 }
