@@ -17,7 +17,7 @@ class ApprobationsCrud implements Crud<IApprobation> {
     }
     async create(objets: IApprobation[]): Promise<IApprobation[]> {
         for (const approbation of objets) {
-            console.log("maquette : %s", approbation);
+            console.log("approbation : %s", approbation);
             const {error, value} = ApprobationValidationSchema.validate(approbation);
             if (error) {
                 console.log(JSON.stringify(error.details));

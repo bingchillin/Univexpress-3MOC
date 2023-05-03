@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IMaquette, MaquetteUploadValidationSchema } from "../Maquettes/Maquettes.Entity";
+import { IMaquette } from "../Maquettes/Maquettes.Entity";
 import { IUser, UserValidationSchema } from "../Users/User.Entity";
 
 type MaquetteVoteDto = Pick<IMaquette, "name">;

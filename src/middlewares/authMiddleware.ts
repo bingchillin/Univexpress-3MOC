@@ -2,7 +2,6 @@ import { NextFunction, Response } from "express";
 import { IUser, Role } from "../Users/User.Entity";
 import {expressjwt as jwt, Request} from "express-jwt";
 import config from "../services/config";
-import { IMaquette } from "../Maquettes/Maquettes.Entity";
 import MaquettesRepo from "../Maquettes/Maquettes.Repo";
 import { StatusCodes } from "http-status-codes";
 
@@ -83,9 +82,7 @@ export const canAccessMaquette = () => {
             });
             return;
         }
-
-        // console.log("maquette owner %s", JSON.stringify(maquette.owner));
-        // console.log("auth %s", JSON.stringify(req.auth));
+        
         if (currentRole == "artist" && maquette.owner?.email != req.auth?.email) {
             res.status(401).send({
                 status: 401,

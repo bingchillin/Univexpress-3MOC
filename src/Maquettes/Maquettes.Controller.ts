@@ -69,4 +69,23 @@ maquettesRouter.get("/:maquette_name/raw",
             // res.header({'Content-Type': 'image/jpeg'}).send(
             
         // );
-});
+    }
+);
+
+maquettesRouter.get("/:maquette_name", 
+    authMiddleware(), 
+    canAccessMaquette(),
+    async function(req: JWTRequest, res: Response) {
+
+        const maquette = await MaquettesRepo.getOne({name: req.params.maquette_name});
+        
+        // console.log("maq name %s", req.params.maquette_name);
+
+        if(!maquette) {
+            res.sendStatus(StatusCodes.NOT_FOUND);
+            return;
+        }
+
+        res.status(200).json(maquette);
+    }
+);

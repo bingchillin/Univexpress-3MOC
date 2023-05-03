@@ -1,7 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { IApprobation, Approbation } from "../../Approbation/Approbation.Entity";
 import Crud from "../_interface";
-import { asUserPojo } from "./Users.Schema";
 
 export const approbationSchema = new Schema({
     flag: {
