@@ -709,6 +709,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get maquette raw",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{adresse serveur}}/maquettes/photodechat.jpg/raw",
+					"host": [
+						"{{adresse serveur}}"
+					],
+					"path": [
+						"maquettes",
+						"photodechat.jpg",
+						"raw"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
