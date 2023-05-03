@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { JWTRequest, authMiddleware, forbidAuthMiddleware } from "../middlewares/authMiddleware";
 import approbationRepo from "./Approbation.Repo";
 import { StatusCodes } from "http-status-codes";
-import { upload } from "../services/Maquette.Uploader";
+import { upload } from "../services/Maquettes.Services";
 import { IUser } from "../Users/User.Entity";
 import { IMaquette } from "../Maquettes/Maquettes.Entity";
 import app from "../index.express";
@@ -32,24 +32,24 @@ approbationRouter.post(
         try{
             let appro = await approbationRepo.getOne(req.body);
             try {
-                if(appro){
+                if(appro) {
                     try {
                         appro.flag = +1;
                         await approbationRepo.create([appro]);
                     } catch(err) {
                         res.status(StatusCodes.BAD_REQUEST).send(err);
                     }
-                }else{
-                    try{
+                } else {
+                    try {
                         await approbationRepo.update([req.body, {flag: +1}]);
-                    }catch(err) {
+                    } catch(err) {
                         res.status(StatusCodes.BAD_REQUEST).send(err);
                     }
                 }
-            }catch(err) {
+            } catch(err) {
                 res.status(StatusCodes.BAD_REQUEST).send(err);
             }
-        }catch(err) {
+        } catch(err) {
             res.status(StatusCodes.BAD_REQUEST).send(err);
         }*/
 
